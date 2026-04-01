@@ -5,7 +5,7 @@
 
 ---
 
-## Phase 1 — Foundation & Core Board
+## Phase 1: Foundation & Core Board
 
 **Goal:** Working task board end-to-end. Auth, database, task CRUD, and live real-time updates. Staff can log in, create tasks manually, and see changes appear instantly across all devices.
 
@@ -28,11 +28,20 @@
 
 **Requirements:** AUTH-01, AUTH-02, AUTH-03, TASK-01, TASK-02, TASK-03, TASK-04, TASK-05, TASK-06, TASK-07, TASK-08, RT-01, RT-02
 
+**Plans:** 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold project, install deps, DB migration, typed clients, shadcn init
+- [ ] 01-02-PLAN.md — Auth flow: login page, protected routes, session persistence
+- [ ] 01-03-PLAN.md — Task CRUD server functions and Zod validation schemas
+- [ ] 01-04-PLAN.md — Board UI: header, task list, status badges, realtime subscription
+- [ ] 01-05-PLAN.md — Task form (create/edit), delete dialog, CRUD wiring, visual checkpoint
+
 **Status:** 🔲 Not started
 
 ---
 
-## Phase 2 — PWA + Push Notifications
+## Phase 2: PWA + Push Notifications
 
 **Goal:** App feels native. Staff install it to their phone home screen and get push-alerted whenever a new task lands — closing the gap between the old KakaoTalk habit and the new tool.
 
@@ -51,7 +60,7 @@
 
 ---
 
-## Phase 3 — AI Screenshot Processing
+## Phase 3: AI Screenshot Processing
 
 **Goal:** Eliminate manual re-keying. Staff upload a KakaoTalk screenshot and the form pre-fills. They review, correct if needed, and save. Targets the exact workflow that caused missed leads.
 
@@ -70,7 +79,7 @@
 
 ---
 
-## Phase 4 — Filters, Search & Hardening
+## Phase 4: Filters, Search & Hardening
 
 **Goal:** Production-stable quality pass. Filtering so the board stays usable as volume accumulates. Security audit. Cross-browser verification.
 
@@ -101,4 +110,4 @@
 
 ---
 *Roadmap created: 2026-03-31*
-*Last updated: 2026-03-31 after initial definition*
+*Last updated: 2026-04-01 after Phase 1 planning*
