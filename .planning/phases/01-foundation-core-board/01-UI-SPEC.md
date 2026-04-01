@@ -53,7 +53,7 @@ Declared values (8-point scale, all multiples of 4):
 |-------|-------|-------|
 | xs | 4px | Icon gaps, inline padding between badge text and edge |
 | sm | 8px | Compact element spacing, gap between form error and input |
-| md | 16px | Default element spacing, form field vertical gap, card padding |
+| md | 16px | Default element spacing, form field vertical gap, card padding, task row vertical padding |
 | lg | 24px | Section padding, task list item vertical padding |
 | xl | 32px | Layout gaps between major sections |
 | 2xl | 48px | Page horizontal padding on desktop |
@@ -68,7 +68,7 @@ Exceptions: 44px minimum touch target on all interactive elements (buttons, stat
 | Role | Size | Weight | Line Height | Usage |
 |------|------|--------|-------------|-------|
 | Body | 16px | 400 (regular) | 1.5 | Task row text, form input text, general content |
-| Label | 14px | 500 (medium) | 1.4 | Form field labels, metadata text (updated by, timestamps), table headers |
+| Label | 14px | 400 (regular) | 1.4 | Form field labels, metadata text (updated by, timestamps), table headers |
 | Heading | 20px | 600 (semibold) | 1.2 | Page titles ("Task Board"), section headers, dialog titles |
 | Display | 28px | 600 (semibold) | 1.2 | App name on login card only |
 
@@ -128,9 +128,10 @@ Accent is NOT used for: general text, borders, backgrounds, icons, or decorative
 
 - Single scrollable list feed, not kanban columns
 - Sorted oldest first (FIFO queue) — D-02
-- Each row displays: client name (Body 16px/400), phone number (Label 14px/500), request type (Label 14px/500), status badge
+- Primary focal point: task list (scanning); secondary: "Create Task" button (action)
+- Each row displays: client name (Body 16px/400), phone number (Label 14px/400), request type (Label 14px/400), status badge
 - Row minimum height: 44px (touch target)
-- Row padding: 16px horizontal, 12px vertical
+- Row padding: 16px horizontal, 16px vertical
 - Row separator: 1px `border-b border-slate-200`
 - Done rows: `opacity-60` (D-04)
 
@@ -179,8 +180,8 @@ Accent is NOT used for: general text, borders, backgrounds, icons, or decorative
 | Error: task load failure | Could not load tasks. Pull down to refresh or try again later. |
 | Delete confirmation title | Delete Task |
 | Delete confirmation body | Are you sure you want to delete this task? This action cannot be undone. |
-| Delete confirmation confirm | Delete |
-| Delete confirmation cancel | Cancel |
+| Delete confirmation confirm | Delete Task |
+| Delete confirmation cancel | Keep Task |
 | Status: Open | Open |
 | Status: In Progress | In Progress |
 | Status: Done | Done |
@@ -255,7 +256,7 @@ No third-party registries declared. Only official shadcn components are used.
 
 - Inside edit dialog or via row action: tap delete icon/button
 - Confirmation dialog appears (destructive pattern)
-- "Delete" button in `red-600`, "Cancel" in ghost variant
+- "Delete Task" button in `red-600`, "Keep Task" in ghost variant
 - On confirm: dialog closes, task removed from list via Realtime
 
 ### Sign Out (D-13)
