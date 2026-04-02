@@ -15,7 +15,7 @@
 
 - [x] **TASK-01**: Staff can create a task via manual form with fields: client name, phone number, service requested, preferred date/time, notes, request type
 - [x] **TASK-02**: Request type field supports: New Booking, Change Time, Change Therapist, Other
-- [ ] **TASK-03**: Task board displays all open tasks shared across all staff
+- [x] **TASK-03**: Task board displays all open tasks shared across all staff
 - [x] **TASK-04**: Task status transitions: Open → In Progress → Done
 - [x] **TASK-05**: Staff can edit a task after creation
 - [x] **TASK-06**: Staff can delete or archive a task
@@ -24,8 +24,8 @@
 
 ### Realtime
 
-- [ ] **RT-01**: Task board updates in real time across all connected devices without page refresh
-- [ ] **RT-02**: New tasks appear instantly on all open sessions when created by any staff member
+- [x] **RT-01**: Task board updates in real time across all connected devices without page refresh
+- [x] **RT-02**: New tasks appear instantly on all open sessions when created by any staff member
 
 ### AI Screenshot Processing
 
@@ -83,14 +83,14 @@
 | AUTH-03 | Phase 1 | Pending |
 | TASK-01 | Phase 1 | Complete |
 | TASK-02 | Phase 1 | Complete |
-| TASK-03 | Phase 1 | Pending |
+| TASK-03 | Phase 1 | Complete |
 | TASK-04 | Phase 1 | Complete |
 | TASK-05 | Phase 1 | Complete |
 | TASK-06 | Phase 1 | Complete |
 | TASK-07 | Phase 1 | Complete |
 | TASK-08 | Phase 1 | Complete |
-| RT-01 | Phase 1 | Pending |
-| RT-02 | Phase 1 | Pending |
+| RT-01 | Phase 1 | Complete |
+| RT-02 | Phase 1 | Complete |
 | NOTF-01 | Phase 2 | Pending |
 | NOTF-02 | Phase 2 | Pending |
 | NOTF-03 | Phase 2 | Pending |

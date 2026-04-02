@@ -34,7 +34,7 @@ Plans:
 - [x] 01-01-PLAN.md — Scaffold project, install deps, DB migration, typed clients, shadcn init
 - [ ] 01-02-PLAN.md — Auth flow: login page, protected routes, session persistence
 - [x] 01-03-PLAN.md — Task CRUD server functions and Zod validation schemas
-- [ ] 01-04-PLAN.md — Board UI: header, task list, status badges, realtime subscription
+- [x] 01-04-PLAN.md — Board UI: header, task list, status badges, realtime subscription
 - [ ] 01-05-PLAN.md — Task form (create/edit), delete dialog, CRUD wiring, visual checkpoint
 
 **Status:** 🔲 Not started
