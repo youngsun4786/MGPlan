@@ -14,12 +14,12 @@
 ### Task Management
 
 - [ ] **TASK-01**: Staff can create a task via manual form with fields: client name, phone number, service requested, preferred date/time, notes, request type
-- [ ] **TASK-02**: Request type field supports: New Booking, Change Time, Change Therapist, Other
+- [x] **TASK-02**: Request type field supports: New Booking, Change Time, Change Therapist, Other
 - [ ] **TASK-03**: Task board displays all open tasks shared across all staff
 - [ ] **TASK-04**: Task status transitions: Open → In Progress → Done
 - [ ] **TASK-05**: Staff can edit a task after creation
 - [ ] **TASK-06**: Staff can delete or archive a task
-- [ ] **TASK-07**: Task shows which staff member last updated it and when
+- [x] **TASK-07**: Task shows which staff member last updated it and when
 - [ ] **TASK-08**: Form validates required fields (client name, phone) with clear error messages
 
 ### Realtime
@@ -82,12 +82,12 @@
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Pending |
 | TASK-01 | Phase 1 | Pending |
-| TASK-02 | Phase 1 | Pending |
+| TASK-02 | Phase 1 | Complete |
 | TASK-03 | Phase 1 | Pending |
 | TASK-04 | Phase 1 | Pending |
 | TASK-05 | Phase 1 | Pending |
 | TASK-06 | Phase 1 | Pending |
-| TASK-07 | Phase 1 | Pending |
+| TASK-07 | Phase 1 | Complete |
 | TASK-08 | Phase 1 | Pending |
 | RT-01 | Phase 1 | Pending |
 | RT-02 | Phase 1 | Pending |
