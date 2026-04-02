@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createTaskSchema, type CreateTaskInput } from '~/lib/schemas'
+import { createTaskSchema } from '~/lib/schemas'
+import type { z } from 'zod'
+
+// Use z.input for the form type (before Zod transforms/defaults are applied)
+type TaskFormValues = z.input<typeof createTaskSchema>
 import { createTask, updateTask } from '~/server/tasks'
 import { REQUEST_TYPE_LABELS, type RequestType } from '~/lib/constants'
 import type { TaskWithStaff } from '~/components/TaskRow'
@@ -31,16 +35,16 @@ interface TaskFormProps {
   onDelete?: (taskId: string) => void
 }
 
-const emptyDefaults: CreateTaskInput = {
+const emptyDefaults: TaskFormValues = {
   client_name: '',
   phone: '',
   service: '',
   preferred_datetime: null,
   notes: '',
-  request_type: undefined as unknown as CreateTaskInput['request_type'],
+  request_type: undefined as unknown as TaskFormValues['request_type'],
 }
 
-function getDefaults(task?: TaskWithStaff): CreateTaskInput {
+function getDefaults(task?: TaskWithStaff): TaskFormValues {
   if (!task) return { ...emptyDefaults }
   return {
     client_name: task.client_name,
@@ -52,20 +56,14 @@ function getDefaults(task?: TaskWithStaff): CreateTaskInput {
   }
 }
 
-export function TaskForm({
-  mode,
-  task,
-  open,
-  onOpenChange,
-  onDelete,
-}: TaskFormProps) {
+export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
     control,
-  } = useForm<CreateTaskInput>({
+  } = useForm<TaskFormValues>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: getDefaults(task),
   })
@@ -83,7 +81,7 @@ export function TaskForm({
     }
   }, [open, task, mode, reset])
 
-  async function onSubmit(data: CreateTaskInput) {
+  async function onSubmit(data: TaskFormValues) {
     if (mode === 'create') {
       await createTask({ data })
     } else {
@@ -97,9 +95,7 @@ export function TaskForm({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>
-            {mode === 'create' ? 'Create Task' : 'Edit Task'}
-          </DialogTitle>
+          <DialogTitle>{mode === 'create' ? 'Create Task' : 'Edit Task'}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -112,16 +108,10 @@ export function TaskForm({
             <Input
               id="client_name"
               {...register('client_name')}
-              aria-describedby={
-                errors.client_name ? 'client_name-error' : undefined
-              }
+              aria-describedby={errors.client_name ? 'client_name-error' : undefined}
             />
             {errors.client_name && (
-              <p
-                id="client_name-error"
-                className="text-red-600 text-sm mt-1"
-                role="alert"
-              >
+              <p id="client_name-error" className="text-red-600 text-sm mt-1" role="alert">
                 {errors.client_name.message}
               </p>
             )}
@@ -140,11 +130,7 @@ export function TaskForm({
               aria-describedby={errors.phone ? 'phone-error' : undefined}
             />
             {errors.phone && (
-              <p
-                id="phone-error"
-                className="text-red-600 text-sm mt-1"
-                role="alert"
-              >
+              <p id="phone-error" className="text-red-600 text-sm mt-1" role="alert">
                 {errors.phone.message}
               </p>
             )}
@@ -166,40 +152,28 @@ export function TaskForm({
               name="request_type"
               control={control}
               render={({ field }) => (
-                <Select
-                  value={field.value ?? ''}
-                  onValueChange={field.onChange}
-                >
+                <Select value={field.value ?? ''} onValueChange={field.onChange}>
                   <SelectTrigger
                     id="request_type"
                     className="w-full"
-                    aria-describedby={
-                      errors.request_type ? 'request_type-error' : undefined
-                    }
+                    aria-describedby={errors.request_type ? 'request_type-error' : undefined}
                   >
                     <SelectValue placeholder="Select request type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {(
-                      Object.entries(REQUEST_TYPE_LABELS) as [
-                        RequestType,
-                        string,
-                      ][]
-                    ).map(([value, label]) => (
-                      <SelectItem key={value} value={value}>
-                        {label}
-                      </SelectItem>
-                    ))}
+                    {(Object.entries(REQUEST_TYPE_LABELS) as [RequestType, string][]).map(
+                      ([value, label]) => (
+                        <SelectItem key={value} value={value}>
+                          {label}
+                        </SelectItem>
+                      ),
+                    )}
                   </SelectContent>
                 </Select>
               )}
             />
             {errors.request_type && (
-              <p
-                id="request_type-error"
-                className="text-red-600 text-sm mt-1"
-                role="alert"
-              >
+              <p id="request_type-error" className="text-red-600 text-sm mt-1" role="alert">
                 {errors.request_type.message}
               </p>
             )}
