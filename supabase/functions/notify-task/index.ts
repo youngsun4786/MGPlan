@@ -46,19 +46,26 @@ const supabase = createClient(
 
 Deno.serve(async (req) => {
   try {
-    const payload: WebhookPayload = await req.json()
-    const { client_name, request_type } = payload.record
+    const payload = await req.json()
+    console.log('Webhook payload:', JSON.stringify(payload, null, 2))
+
+    const record = payload.record ?? payload
+    const { client_name, request_type } = record
+    console.log('Extracted:', { client_name, request_type })
 
     // Fetch all push subscriptions (per D-11: all staff get notified)
     const { data: subscriptions, error } = await supabase
       .from('push_subscriptions')
       .select('endpoint, p256dh, auth')
 
+    console.log('Subscriptions found:', subscriptions?.length, 'Error:', error?.message)
+
     if (error || !subscriptions) {
       return new Response(JSON.stringify({ error: error?.message }), { status: 500 })
     }
 
     if (subscriptions.length === 0) {
+      console.log('No subscriptions — skipping')
       return new Response(JSON.stringify({ sent: 0, expired: 0 }), {
         headers: { 'Content-Type': 'application/json' },
       })
@@ -71,31 +78,41 @@ Deno.serve(async (req) => {
     })
 
     // Fan out to all subscribers (3-5 people, no batching needed)
+    console.log('Sending to', subscriptions.length, 'subscribers, payload:', notification)
     const results = await Promise.allSettled(
       subscriptions.map((sub) =>
         webpush.sendNotification(
           { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
           notification,
-        )
+        ),
       ),
+    )
+
+    console.log(
+      'Send results:',
+      results.map((r) => (r.status === 'fulfilled' ? 'OK' : `FAIL: ${r.reason}`)),
     )
 
     // Clean up expired subscriptions (410 Gone)
     const expired = results
-      .map((r, i) => (r.status === 'rejected' && r.reason?.statusCode === 410 ? subscriptions[i] : null))
+      .map((r, i) =>
+        r.status === 'rejected' && r.reason?.statusCode === 410 ? subscriptions[i] : null,
+      )
       .filter(Boolean)
 
     if (expired.length > 0) {
       await supabase
         .from('push_subscriptions')
         .delete()
-        .in('endpoint', expired.map((e) => e!.endpoint))
+        .in(
+          'endpoint',
+          expired.map((e) => e!.endpoint),
+        )
     }
 
-    return new Response(
-      JSON.stringify({ sent: subscriptions.length, expired: expired.length }),
-      { headers: { 'Content-Type': 'application/json' } },
-    )
+    return new Response(JSON.stringify({ sent: subscriptions.length, expired: expired.length }), {
+      headers: { 'Content-Type': 'application/json' },
+    })
   } catch (err) {
     return new Response(JSON.stringify({ error: String(err) }), { status: 500 })
   }

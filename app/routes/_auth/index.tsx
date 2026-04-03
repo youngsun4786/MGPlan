@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { fetchTasks, deleteTask as deleteTaskFn } from '~/server/tasks'
 import { TaskBoard } from '~/components/TaskBoard'
@@ -36,10 +36,13 @@ function BoardPage() {
     dismiss: pushDismiss,
   } = usePushSubscription({ isStandalone, isIOS })
 
-  const [installDismissed, setInstallDismissed] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return localStorage.getItem(INSTALL_DISMISSED_KEY) === 'true'
-  })
+  const [installDismissed, setInstallDismissed] = useState(false)
+
+  useEffect(() => {
+    if (localStorage.getItem(INSTALL_DISMISSED_KEY) === 'true') {
+      setInstallDismissed(true)
+    }
+  }, [])
 
   // Form dialog state
   const [formOpen, setFormOpen] = useState(false)

@@ -26,7 +26,38 @@ export function usePushSubscription({
     const dismissed = localStorage.getItem(PUSH_DISMISSED_KEY) === 'true'
 
     if (browserPermission === 'granted') {
-      setPermission('granted')
+      // Permission granted but we need to check if subscription actually exists
+      // If not, re-subscribe and save to Supabase
+      getExistingSubscription()
+        .then(async (existing) => {
+          if (existing) {
+            setPermission('granted')
+          } else {
+            // Permission granted but no subscription — auto-subscribe
+            const vapidPublicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY
+            if (!vapidPublicKey) {
+              setPermission('granted')
+              return
+            }
+            const subscription = await subscribeToPush(vapidPublicKey)
+            if (subscription) {
+              const json = subscription.toJSON()
+              await savePushSubscription({
+                data: {
+                  endpoint: subscription.endpoint,
+                  keys: {
+                    p256dh: json.keys?.p256dh ?? '',
+                    auth: json.keys?.auth ?? '',
+                  },
+                },
+              })
+            }
+            setPermission('granted')
+          }
+        })
+        .catch(() => {
+          setPermission('granted')
+        })
     } else if (browserPermission === 'denied') {
       setPermission('denied')
     } else if (dismissed) {

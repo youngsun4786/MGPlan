@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 
 export function useOnlineStatus() {
-  const [isOnline, setIsOnline] = useState(
-    typeof navigator !== 'undefined' ? navigator.onLine : true
-  )
+  const [isOnline, setIsOnline] = useState(true)
 
   useEffect(() => {
+    // Sync actual status after hydration
+    setIsOnline(navigator.onLine)
+
     const handleOnline = () => setIsOnline(true)
     const handleOffline = () => setIsOnline(false)
     window.addEventListener('online', handleOnline)
