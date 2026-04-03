@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { cn } from '~/lib/utils'
 import { formatRelativeTime } from '~/lib/utils'
 import { REQUEST_TYPE_LABELS } from '~/lib/constants'
 import type { TaskStatus } from '~/lib/constants'
 import type { Task } from '~/lib/database.types'
 import { StatusBadge } from '~/components/StatusBadge'
+import { ScreenshotThumbnail } from '~/components/ScreenshotThumbnail'
+import { ImageLightbox } from '~/components/ImageLightbox'
 
 export type TaskWithStaff = Task & { staff?: { display_name: string } | null }
 
@@ -21,6 +24,7 @@ interface TaskRowProps {
 
 export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
   const isDone = task.status === 'done'
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   function handleRowClick() {
     onEdit(task)
@@ -49,9 +53,17 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
       onClick={handleRowClick}
       onKeyDown={handleRowKeyDown}
     >
-      {/* Top line: client name + status badge */}
+      {/* Top line: client name + screenshot thumbnail + status badge */}
       <div className="flex items-center justify-between gap-2">
-        <span className="text-base font-normal text-slate-900 truncate">{task.client_name}</span>
+        <div className="flex items-center gap-1 truncate">
+          <span className="text-base font-normal text-slate-900 truncate">{task.client_name}</span>
+          {task.screenshot_url && (
+            <ScreenshotThumbnail
+              screenshotUrl={task.screenshot_url}
+              onView={() => setLightboxOpen(true)}
+            />
+          )}
+        </div>
         <StatusBadge status={task.status} onClick={handleBadgeClick} />
       </div>
 
@@ -67,6 +79,14 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
           Updated by {task.staff?.display_name ?? 'Unknown'} {formatRelativeTime(task.updated_at)}
         </span>
       </div>
+
+      {task.screenshot_url && (
+        <ImageLightbox
+          open={lightboxOpen}
+          onOpenChange={setLightboxOpen}
+          imageUrl={task.screenshot_url}
+        />
+      )}
     </div>
   )
 }

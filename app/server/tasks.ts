@@ -35,7 +35,7 @@ export const fetchTasks = createServerFn({ method: 'GET' }).handler(async () => 
   const { data, error } = await supabase
     .from('tasks')
     .select(
-      'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, staff!tasks_last_updated_by_fkey(display_name)',
+      'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, screenshot_url, staff!tasks_last_updated_by_fkey(display_name)',
     )
     .order('created_at', { ascending: true })
 
@@ -72,11 +72,12 @@ export const createTask = createServerFn({ method: 'POST' })
         preferred_datetime: data.preferred_datetime || null,
         notes: data.notes || null,
         request_type: data.request_type,
+        screenshot_url: data.screenshot_url || null,
         created_by: user.id,
         last_updated_by: user.id,
       })
       .select(
-        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at',
+        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, screenshot_url',
       )
       .single()
 

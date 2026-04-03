@@ -11,6 +11,7 @@ export const createTaskSchema = z.object({
   request_type: z.enum(['new_booking', 'change_time', 'change_therapist', 'other'], {
     required_error: 'Request type is required',
   }),
+  screenshot_url: z.string().nullable().optional().default(null),
 })
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>
