@@ -65,7 +65,6 @@ export type Database = {
           updated_at?: string
         }
       }
-    }
       push_subscriptions: {
         Row: {
           id: string

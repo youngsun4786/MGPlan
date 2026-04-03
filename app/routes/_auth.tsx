@@ -5,7 +5,7 @@ export const Route = createFileRoute('/_auth')({
   beforeLoad: async () => {
     const user = await getCurrentUser()
     if (!user) {
-      throw redirect({ to: '/login' })
+      throw redirect({ to: '/login', search: { expired: 'true' } })
     }
     return { user }
   },
