@@ -103,7 +103,7 @@ export const updateTask = createServerFn({ method: 'POST' })
       .update({ ...updates, last_updated_by: user.id })
       .eq('id', id)
       .select(
-        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at',
+        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, screenshot_url',
       )
       .single()
 
