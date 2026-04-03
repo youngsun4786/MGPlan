@@ -66,6 +66,33 @@ export type Database = {
         }
       }
     }
+      push_subscriptions: {
+        Row: {
+          id: string
+          staff_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          staff_id: string
+          endpoint: string
+          p256dh: string
+          auth: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          staff_id?: string
+          endpoint?: string
+          p256dh?: string
+          auth?: string
+          created_at?: string
+        }
+      }
+    }
     Enums: {
       task_status: 'open' | 'in_progress' | 'done'
       request_type: 'new_booking' | 'change_time' | 'change_therapist' | 'other'
