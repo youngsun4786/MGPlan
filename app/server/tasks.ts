@@ -26,8 +26,14 @@ export const fetchTasks = createServerFn({ method: 'GET' }).handler(async () => 
     )
     .order('created_at', { ascending: true })
 
+  console.log(
+    '[tasks] fetchTasks result:',
+    data?.length ?? 0,
+    'tasks',
+    error ? `error=${error.message}` : 'no error',
+  )
   if (error) throw new Error(error.message)
-  return data
+  return data ?? []
 })
 
 // Create a new task (TASK-01)
