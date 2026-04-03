@@ -20,18 +20,14 @@ const mockTask = {
 
 describe('TaskRow component', () => {
   it('displays client name, phone, request type, and status badge', () => {
-    render(
-      <TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />,
-    )
+    render(<TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />)
     expect(screen.getByText('Kim Minjun')).toBeDefined()
     expect(screen.getByText('010-1234-5678')).toBeDefined()
     expect(screen.getByText('New Booking')).toBeDefined()
   })
 
   it('shows last updated by display_name (TASK-07)', () => {
-    render(
-      <TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />,
-    )
+    render(<TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />)
     expect(screen.getByText(/Updated by Kim/)).toBeDefined()
   })
 
@@ -40,27 +36,19 @@ describe('TaskRow component', () => {
     const { container } = render(
       <TaskRow task={doneTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />,
     )
-    expect(container.firstElementChild?.className).toContain('opacity-60')
+    expect(container.firstElementChild?.className).toContain('opacity-40')
   })
 
   it('calls onEdit on row click', () => {
     const onEdit = vi.fn()
-    render(
-      <TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={onEdit} />,
-    )
+    render(<TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={onEdit} />)
     fireEvent.click(screen.getByText('Kim Minjun'))
     expect(onEdit).toHaveBeenCalledWith(mockTask)
   })
 
   it('calls onStatusChange with next status on badge click', () => {
     const onStatusChange = vi.fn()
-    render(
-      <TaskRow
-        task={mockTask}
-        onStatusChange={onStatusChange}
-        onEdit={vi.fn()}
-      />,
-    )
+    render(<TaskRow task={mockTask} onStatusChange={onStatusChange} onEdit={vi.fn()} />)
     fireEvent.click(screen.getByRole('button', { name: /Status: Open/i }))
     expect(onStatusChange).toHaveBeenCalledWith('1', 'in_progress')
   })
@@ -68,13 +56,7 @@ describe('TaskRow component', () => {
   it('stops propagation on badge click to prevent row click', () => {
     const onEdit = vi.fn()
     const onStatusChange = vi.fn()
-    render(
-      <TaskRow
-        task={mockTask}
-        onStatusChange={onStatusChange}
-        onEdit={onEdit}
-      />,
-    )
+    render(<TaskRow task={mockTask} onStatusChange={onStatusChange} onEdit={onEdit} />)
     fireEvent.click(screen.getByRole('button', { name: /Status: Open/i }))
     // onEdit should NOT have been called since badge click stops propagation
     expect(onEdit).not.toHaveBeenCalled()
