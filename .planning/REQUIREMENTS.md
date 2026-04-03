@@ -30,10 +30,10 @@
 ### AI Screenshot Processing
 
 - [ ] **AI-01**: Staff can upload a KakaoTalk screenshot (drag-and-drop or tap-to-upload on mobile)
-- [ ] **AI-02**: Claude vision API extracts client name, phone, service, date/time, notes, and request type from the screenshot
+- [x] **AI-02**: Claude vision API extracts client name, phone, service, date/time, notes, and request type from the screenshot
 - [ ] **AI-03**: Extracted fields pre-fill the task creation form for staff review before saving
 - [ ] **AI-04**: Fields with low extraction confidence are visually flagged for staff to verify
-- [ ] **AI-05**: Unreadable screenshots fall back gracefully to the manual entry form
+- [x] **AI-05**: Unreadable screenshots fall back gracefully to the manual entry form
 
 ### Notifications
 
@@ -98,10 +98,10 @@
 | PWA-02 | Phase 2 | Complete |
 | PWA-03 | Phase 2 | Complete |
 | AI-01 | Phase 3 | Pending |
-| AI-02 | Phase 3 | Pending |
+| AI-02 | Phase 3 | Complete |
 | AI-03 | Phase 3 | Pending |
 | AI-04 | Phase 3 | Pending |
-| AI-05 | Phase 3 | Pending |
+| AI-05 | Phase 3 | Complete |
 | FILT-01 | Phase 4 | Pending |
 | FILT-02 | Phase 4 | Pending |
 | FILT-03 | Phase 4 | Pending |
