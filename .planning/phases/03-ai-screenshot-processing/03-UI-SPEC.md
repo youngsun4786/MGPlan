@@ -48,11 +48,13 @@ Exceptions: Touch targets use `min-h-[44px] min-w-[44px]` per existing conventio
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
 | Body | 14px (text-sm) | 400 (normal) | 1.5 |
-| Label | 14px (text-sm) | 500 (medium) | 1.5 |
+| Label | 14px (text-sm) | 400 (normal) | 1.5 |
 | Heading | 20px (text-xl) | 600 (semibold) | 1.2 |
 | Caption | 12px (text-xs) | 400 (normal) | 1.5 |
 
-Source: Matches existing codebase. Header uses `text-xl font-semibold`, body uses `text-base`/`text-sm font-normal`, labels use shadcn Label component (14px medium), metadata uses `text-xs`.
+2 weights declared: 400 (normal) for body, labels, and captions; 600 (semibold) for headings. Labels are distinguished from body text by context and positioning (above form fields), not by weight.
+
+Source: Matches existing codebase. Header uses `text-xl font-semibold`, body uses `text-base`/`text-sm font-normal`, metadata uses `text-xs`.
 
 ---
 
@@ -66,7 +68,7 @@ Source: Matches existing codebase. Header uses `text-xl font-semibold`, body use
 | Destructive | `oklch(0.577 0.245 27.325)` / red-600 | Delete button, required field asterisks, validation errors |
 | AI Confidence Warning | `amber-50` bg / `amber-200` border / `amber-800` text | Low-confidence field borders, warning icons, warning tooltips |
 
-Accent reserved for: "Upload Screenshot" CTA, "Create Task" / "Save" submit buttons, focus rings on interactive elements, "In Progress" status badge.
+Accent reserved for: "Upload Screenshot" CTA, "Create Task" submit button, focus rings on interactive elements, "In Progress" status badge.
 
 AI Confidence Warning palette: Reuses the established amber pattern from `OfflineBanner.tsx` (`bg-amber-50`, `border-amber-200`, `text-amber-800`). Applied as `border-amber-400` on input fields + `text-amber-600` warning icon beside the field label.
 
