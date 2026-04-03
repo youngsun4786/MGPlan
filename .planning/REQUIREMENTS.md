@@ -39,7 +39,7 @@
 
 - [ ] **NOTF-01**: Staff receive a push notification when any new task is created
 - [ ] **NOTF-02**: Push notification includes client name and request type
-- [ ] **NOTF-03**: Staff can grant or deny push permission from within the app
+- [x] **NOTF-03**: Staff can grant or deny push permission from within the app
 
 ### PWA & Mobile
 
@@ -93,7 +93,7 @@
 | RT-02 | Phase 1 | Complete |
 | NOTF-01 | Phase 2 | Pending |
 | NOTF-02 | Phase 2 | Pending |
-| NOTF-03 | Phase 2 | Pending |
+| NOTF-03 | Phase 2 | Complete |
 | PWA-01 | Phase 2 | Complete |
 | PWA-02 | Phase 2 | Complete |
 | PWA-03 | Phase 2 | Complete |
