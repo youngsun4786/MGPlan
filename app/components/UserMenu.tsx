@@ -14,9 +14,18 @@ interface UserMenuProps {
   isStandalone?: boolean
   installDismissed?: boolean
   onInstallApp?: () => void
+  pushState?: 'granted' | 'denied' | 'default' | 'dismissed'
+  onEnableNotifications?: () => void
 }
 
-export function UserMenu({ user, isStandalone, installDismissed, onInstallApp }: UserMenuProps) {
+export function UserMenu({
+  user,
+  isStandalone,
+  installDismissed,
+  onInstallApp,
+  pushState,
+  onEnableNotifications,
+}: UserMenuProps) {
   const initial = user.display_name.charAt(0).toUpperCase()
 
   async function handleSignOut() {
@@ -40,6 +49,26 @@ export function UserMenu({ user, isStandalone, installDismissed, onInstallApp }:
               <span className="text-xs text-slate-500">{user.email}</span>
             </div>
           </DropdownMenuLabel>
+          {(pushState === 'denied' || pushState === 'dismissed') && (
+            <>
+              <DropdownMenuSeparator />
+              {typeof window !== 'undefined' &&
+              'Notification' in window &&
+              Notification.permission === 'denied' ? (
+                <DropdownMenuItem
+                  className="text-muted-foreground flex flex-col items-start"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <span>Notifications off</span>
+                  <span className="text-muted-foreground text-xs">Enable in browser settings</span>
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem className="text-muted-foreground" onClick={onEnableNotifications}>
+                  Notifications off
+                </DropdownMenuItem>
+              )}
+            </>
+          )}
           {!isStandalone && installDismissed && onInstallApp && (
             <>
               <DropdownMenuSeparator />

@@ -9,6 +9,8 @@ interface HeaderProps {
   isStandalone?: boolean
   installDismissed?: boolean
   onInstallApp?: () => void
+  pushState?: 'granted' | 'denied' | 'default' | 'dismissed'
+  onEnableNotifications?: () => void
 }
 
 export function Header({
@@ -17,6 +19,8 @@ export function Header({
   isStandalone,
   installDismissed,
   onInstallApp,
+  pushState,
+  onEnableNotifications,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-slate-200">
@@ -35,6 +39,8 @@ export function Header({
             isStandalone={isStandalone}
             installDismissed={installDismissed}
             onInstallApp={onInstallApp}
+            pushState={pushState}
+            onEnableNotifications={onEnableNotifications}
           />
         </div>
       </div>

@@ -8,8 +8,10 @@ import { DeleteTaskDialog } from '~/components/DeleteTaskDialog'
 import { OfflineBanner } from '~/components/OfflineBanner'
 import { OfflineShell } from '~/components/OfflineShell'
 import { InstallBanner } from '~/components/InstallBanner'
+import { PushPermissionCard } from '~/components/PushPermissionCard'
 import { useOnlineStatus } from '~/hooks/useOnlineStatus'
 import { useInstallPrompt } from '~/hooks/useInstallPrompt'
+import { usePushSubscription } from '~/hooks/usePushSubscription'
 import type { TaskWithStaff } from '~/components/TaskRow'
 
 const INSTALL_DISMISSED_KEY = 'maison-install-dismissed'
@@ -28,6 +30,11 @@ function BoardPage() {
 
   const isOnline = useOnlineStatus()
   const { isStandalone, isIOS, promptInstall } = useInstallPrompt()
+  const {
+    permission: pushPermission,
+    subscribe: pushSubscribe,
+    dismiss: pushDismiss,
+  } = usePushSubscription({ isStandalone, isIOS })
 
   const [installDismissed, setInstallDismissed] = useState(() => {
     if (typeof window === 'undefined') return false
@@ -91,6 +98,9 @@ function BoardPage() {
 
   const showInstallBanner = !isStandalone && !installDismissed
 
+  // On iOS, push only works in standalone mode -- hide push card and show install banner instead
+  const showPushCard = pushPermission === 'default' && !(isIOS && !isStandalone)
+
   return (
     <div className="min-h-screen bg-white">
       <Header
@@ -99,6 +109,8 @@ function BoardPage() {
         isStandalone={isStandalone}
         installDismissed={installDismissed}
         onInstallApp={handleInstallApp}
+        pushState={pushPermission}
+        onEnableNotifications={pushSubscribe}
       />
       <OfflineBanner visible={!isOnline} />
       {!isOnline && !tasks ? (
@@ -107,6 +119,11 @@ function BoardPage() {
         <>
           <main className="pt-2">
             <div className="px-4">
+              {showPushCard && (
+                <div className="mb-4 max-w-[960px] mx-auto w-full">
+                  <PushPermissionCard onEnable={pushSubscribe} onDismiss={pushDismiss} />
+                </div>
+              )}
               {showInstallBanner && (
                 <div className="mb-4 max-w-[960px] mx-auto w-full">
                   <InstallBanner
