@@ -82,6 +82,13 @@ Plans:
 
 **Requirements:** AI-01, AI-02, AI-03, AI-04, AI-05
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Install deps, DB migration, extraction types, server function with Claude Vision + rate limiter
+- [ ] 03-02-PLAN.md — UI components (dropdown, skeleton, confidence, preview, thumbnail, lightbox) + form/header/row modifications + wiring
+- [ ] 03-03-PLAN.md — Visual and functional verification checkpoint
+
 **Status:** 🔲 Not started
 
 ---
@@ -117,4 +124,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-31*
-*Last updated: 2026-04-02 after Phase 2 planning*
+*Last updated: 2026-04-03 after Phase 3 planning*
