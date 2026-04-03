@@ -44,35 +44,27 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
       tabIndex={0}
       className={cn(
         'px-4 py-4 border-b border-slate-200 hover:bg-slate-50 min-h-[44px] cursor-pointer transition-colors',
-        isDone && 'opacity-60',
+        isDone && 'opacity-40',
       )}
       onClick={handleRowClick}
       onKeyDown={handleRowKeyDown}
     >
       {/* Top line: client name + status badge */}
       <div className="flex items-center justify-between gap-2">
-        <span className="text-base font-normal text-slate-900 truncate">
-          {task.client_name}
-        </span>
-        <StatusBadge
-          status={task.status}
-          onClick={handleBadgeClick}
-        />
+        <span className="text-base font-normal text-slate-900 truncate">{task.client_name}</span>
+        <StatusBadge status={task.status} onClick={handleBadgeClick} />
       </div>
 
       {/* Bottom line: phone + request type */}
       <div className="flex items-center gap-3 mt-1">
         <span className="text-sm text-slate-600">{task.phone}</span>
-        <span className="text-sm text-slate-600">
-          {REQUEST_TYPE_LABELS[task.request_type]}
-        </span>
+        <span className="text-sm text-slate-600">{REQUEST_TYPE_LABELS[task.request_type]}</span>
       </div>
 
       {/* Last updated info (TASK-07) */}
       <div className="mt-1">
         <span className="text-xs text-slate-400">
-          Updated by {task.staff?.display_name ?? 'Unknown'}{' '}
-          {formatRelativeTime(task.updated_at)}
+          Updated by {task.staff?.display_name ?? 'Unknown'} {formatRelativeTime(task.updated_at)}
         </span>
       </div>
     </div>
