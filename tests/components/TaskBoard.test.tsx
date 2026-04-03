@@ -2,19 +2,15 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 // Use vi.hoisted to define mock functions that can be referenced in vi.mock factories
-const { mockChannel, mockOn, mockSubscribe, mockRemoveChannel } = vi.hoisted(
-  () => {
-    const mockSubscribe = vi.fn().mockReturnValue({ unsubscribe: vi.fn() })
-    const mockOn = vi.fn().mockReturnThis()
-    const mockChannel = vi
-      .fn()
-      .mockReturnValue({ on: mockOn, subscribe: mockSubscribe })
-    const mockRemoveChannel = vi.fn()
-    return { mockChannel, mockOn, mockSubscribe, mockRemoveChannel }
-  },
-)
+const { mockChannel, mockOn, mockSubscribe, mockRemoveChannel } = vi.hoisted(() => {
+  const mockSubscribe = vi.fn().mockReturnValue({ unsubscribe: vi.fn() })
+  const mockOn = vi.fn().mockReturnThis()
+  const mockChannel = vi.fn().mockReturnValue({ on: mockOn, subscribe: mockSubscribe })
+  const mockRemoveChannel = vi.fn()
+  return { mockChannel, mockOn, mockSubscribe, mockRemoveChannel }
+})
 
-vi.mock('~/lib/supabase.client', () => ({
+vi.mock('~/lib/supabase.browser', () => ({
   supabaseBrowserClient: {
     channel: mockChannel,
     removeChannel: mockRemoveChannel,
@@ -73,9 +69,7 @@ describe('TaskBoard component', () => {
   })
 
   it('removes realtime channel on unmount (RT-01)', () => {
-    const { unmount } = render(
-      <TaskBoard initialTasks={[]} onEditTask={vi.fn()} />,
-    )
+    const { unmount } = render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} />)
     unmount()
     expect(mockRemoveChannel).toHaveBeenCalled()
   })

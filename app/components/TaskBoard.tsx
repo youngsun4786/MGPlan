@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { supabaseBrowserClient } from '~/lib/supabase.client'
+import { supabaseBrowserClient } from '~/lib/supabase.browser'
 import { fetchTasks, updateTaskStatus } from '~/server/tasks'
 import type { Task } from '~/lib/database.types'
 import type { TaskStatus } from '~/lib/constants'
@@ -40,56 +40,40 @@ export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
   useEffect(() => {
     const channel = supabaseBrowserClient
       .channel('tasks:all')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'tasks' },
-        async (payload) => {
-          if (payload.eventType === 'INSERT') {
-            const newTask = enrichWithStaff(payload.new as Task)
-            // If staff not in cache, fetch it
-            if (!newTask.staff) {
-              const { data } = await supabaseBrowserClient
-                .from('staff')
-                .select('display_name')
-                .eq('id', (payload.new as Task).last_updated_by)
-                .single()
-              if (data) {
-                staffMapRef.current.set(
-                  (payload.new as Task).last_updated_by,
-                  data.display_name,
-                )
-                newTask.staff = { display_name: data.display_name }
-              }
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, async (payload) => {
+        if (payload.eventType === 'INSERT') {
+          const newTask = enrichWithStaff(payload.new as Task)
+          // If staff not in cache, fetch it
+          if (!newTask.staff) {
+            const { data } = await supabaseBrowserClient
+              .from('staff')
+              .select('display_name')
+              .eq('id', (payload.new as Task).last_updated_by)
+              .single()
+            if (data) {
+              staffMapRef.current.set((payload.new as Task).last_updated_by, data.display_name)
+              newTask.staff = { display_name: data.display_name }
             }
-            setTasks((prev) => [...prev, newTask])
-          } else if (payload.eventType === 'UPDATE') {
-            const updatedTask = enrichWithStaff(payload.new as Task)
-            if (!updatedTask.staff) {
-              const { data } = await supabaseBrowserClient
-                .from('staff')
-                .select('display_name')
-                .eq('id', (payload.new as Task).last_updated_by)
-                .single()
-              if (data) {
-                staffMapRef.current.set(
-                  (payload.new as Task).last_updated_by,
-                  data.display_name,
-                )
-                updatedTask.staff = { display_name: data.display_name }
-              }
-            }
-            setTasks((prev) =>
-              prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)),
-            )
-          } else if (payload.eventType === 'DELETE') {
-            setTasks((prev) =>
-              prev.filter(
-                (t) => t.id !== (payload.old as { id: string }).id,
-              ),
-            )
           }
-        },
-      )
+          setTasks((prev) => [...prev, newTask])
+        } else if (payload.eventType === 'UPDATE') {
+          const updatedTask = enrichWithStaff(payload.new as Task)
+          if (!updatedTask.staff) {
+            const { data } = await supabaseBrowserClient
+              .from('staff')
+              .select('display_name')
+              .eq('id', (payload.new as Task).last_updated_by)
+              .single()
+            if (data) {
+              staffMapRef.current.set((payload.new as Task).last_updated_by, data.display_name)
+              updatedTask.staff = { display_name: data.display_name }
+            }
+          }
+          setTasks((prev) => prev.map((t) => (t.id === updatedTask.id ? updatedTask : t)))
+        } else if (payload.eventType === 'DELETE') {
+          setTasks((prev) => prev.filter((t) => t.id !== (payload.old as { id: string }).id))
+        }
+      })
       .subscribe()
 
     return () => {
@@ -99,9 +83,7 @@ export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
 
   async function handleStatusChange(taskId: string, newStatus: TaskStatus) {
     // Optimistic: update local state immediately
-    setTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)),
-    )
+    setTasks((prev) => prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)))
     try {
       await updateTaskStatus({ data: { id: taskId, status: newStatus } })
     } catch {
@@ -114,18 +96,13 @@ export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
   // Sort tasks by created_at ASC (D-02 FIFO)
   const sortedTasks = tasks
     .slice()
-    .sort(
-      (a, b) =>
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-    )
+    .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
 
   if (tasks.length === 0) {
     return (
       <div className="max-w-[960px] mx-auto w-full">
         <div className="flex flex-col items-center justify-center py-16 px-4">
-          <h2 className="text-xl font-semibold text-slate-600">
-            No tasks yet
-          </h2>
+          <h2 className="text-xl font-semibold text-slate-600">No tasks yet</h2>
           <p className="text-base text-slate-500 mt-2 text-center">
             Create your first task to start tracking client requests.
           </p>

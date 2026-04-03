@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from '~/components/ui/dropdown-menu'
-import { supabaseBrowserClient } from '~/lib/supabase.client'
+import { supabaseBrowserClient } from '~/lib/supabase.browser'
 
 interface UserMenuProps {
   user: { display_name: string; email: string }

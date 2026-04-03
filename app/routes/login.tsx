@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute, redirect, useSearch } from '@tanstack/react-router'
-import { supabaseBrowserClient } from '~/lib/supabase.client'
+import { supabaseBrowserClient } from '~/lib/supabase.browser'
 import { getCurrentUser } from '~/server/auth'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
@@ -52,9 +52,7 @@ function LoginPage() {
         <h2 className="mt-2 text-[20px] font-semibold leading-[1.2]">Sign in to Maison</h2>
 
         {expired === 'true' && (
-          <p className="mt-4 text-sm text-slate-600">
-            Your session expired. Please sign in again.
-          </p>
+          <p className="mt-4 text-sm text-slate-600">Your session expired. Please sign in again.</p>
         )}
 
         <form onSubmit={handleLogin} className="mt-6 space-y-4">
