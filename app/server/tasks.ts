@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { zodValidator } from '@tanstack/zod-adapter'
-import { getWebRequest } from '@tanstack/react-start/server'
+import { getRequest } from '@tanstack/react-start/server'
 import { getSupabaseServerClient } from '~/lib/supabase.server'
 import {
   createTaskSchema,
@@ -11,7 +11,7 @@ import {
 
 // Fetch all tasks ordered by created_at ASC (D-02: FIFO queue)
 export const fetchTasks = createServerFn({ method: 'GET' }).handler(async () => {
-  const request = getWebRequest()
+  const request = getRequest()
   const supabase = getSupabaseServerClient(request.headers)
 
   const {
@@ -22,7 +22,7 @@ export const fetchTasks = createServerFn({ method: 'GET' }).handler(async () => 
   const { data, error } = await supabase
     .from('tasks')
     .select(
-      'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, staff!tasks_last_updated_by_fkey(display_name)'
+      'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at, staff!tasks_last_updated_by_fkey(display_name)',
     )
     .order('created_at', { ascending: true })
 
@@ -32,9 +32,9 @@ export const fetchTasks = createServerFn({ method: 'GET' }).handler(async () => 
 
 // Create a new task (TASK-01)
 export const createTask = createServerFn({ method: 'POST' })
-  .validator(zodValidator(createTaskSchema))
+  .inputValidator(zodValidator(createTaskSchema))
   .handler(async ({ data }) => {
-    const request = getWebRequest()
+    const request = getRequest()
     const supabase = getSupabaseServerClient(request.headers)
 
     const {
@@ -55,7 +55,7 @@ export const createTask = createServerFn({ method: 'POST' })
         last_updated_by: user.id,
       })
       .select(
-        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at'
+        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at',
       )
       .single()
 
@@ -65,9 +65,9 @@ export const createTask = createServerFn({ method: 'POST' })
 
 // Update task fields partially (TASK-05)
 export const updateTask = createServerFn({ method: 'POST' })
-  .validator(zodValidator(updateTaskSchema))
+  .inputValidator(zodValidator(updateTaskSchema))
   .handler(async ({ data }) => {
-    const request = getWebRequest()
+    const request = getRequest()
     const supabase = getSupabaseServerClient(request.headers)
 
     const {
@@ -81,7 +81,7 @@ export const updateTask = createServerFn({ method: 'POST' })
       .update({ ...updates, last_updated_by: user.id })
       .eq('id', id)
       .select(
-        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at'
+        'id, client_name, phone, service, preferred_datetime, notes, request_type, status, created_by, last_updated_by, created_at, updated_at',
       )
       .single()
 
@@ -91,9 +91,9 @@ export const updateTask = createServerFn({ method: 'POST' })
 
 // Update task status only -- for quick badge cycling (TASK-04)
 export const updateTaskStatus = createServerFn({ method: 'POST' })
-  .validator(zodValidator(updateTaskStatusSchema))
+  .inputValidator(zodValidator(updateTaskStatusSchema))
   .handler(async ({ data }) => {
-    const request = getWebRequest()
+    const request = getRequest()
     const supabase = getSupabaseServerClient(request.headers)
 
     const {
@@ -114,9 +114,9 @@ export const updateTaskStatus = createServerFn({ method: 'POST' })
 
 // Delete a task by ID (TASK-06)
 export const deleteTask = createServerFn({ method: 'POST' })
-  .validator(zodValidator(deleteTaskSchema))
+  .inputValidator(zodValidator(deleteTaskSchema))
   .handler(async ({ data }) => {
-    const request = getWebRequest()
+    const request = getRequest()
     const supabase = getSupabaseServerClient(request.headers)
 
     const {
