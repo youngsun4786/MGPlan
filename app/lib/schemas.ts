@@ -26,6 +26,7 @@ export const updateTaskSchema = z.object({
   notes: z.string().trim().optional(),
   request_type: z.enum(['new_booking', 'change_time', 'change_therapist', 'other']).optional(),
   status: z.enum(['open', 'in_progress', 'done']).optional(),
+  screenshot_url: z.string().nullable().optional(),
 })
 
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>
@@ -45,7 +46,7 @@ export const deleteTaskSchema = z.object({
 
 export type DeleteTaskInput = z.infer<typeof deleteTaskSchema>
 
-// Screenshot processing input (Phase 3 -- AI-02)
+// Screenshot upload input (Phase 3)
 export const screenshotInputSchema = z.object({
   imageBase64: z.string().min(1, 'Image data is required'),
   mediaType: z.enum(['image/jpeg', 'image/png', 'image/webp']),

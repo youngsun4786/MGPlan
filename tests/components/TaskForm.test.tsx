@@ -7,6 +7,10 @@ vi.mock('~/server/tasks', () => ({
   updateTask: vi.fn().mockResolvedValue({ id: '1' }),
 }))
 
+vi.mock('~/server/screenshot', () => ({
+  uploadScreenshot: vi.fn().mockResolvedValue({ success: true, screenshotUrl: 'https://example.com/img.jpg' }),
+}))
+
 // Mock the Dialog portal to render inline for testing
 vi.mock('~/components/ui/dialog', async () => {
   return {
@@ -70,25 +74,6 @@ vi.mock('~/components/ScreenshotPreview', () => ({
 }))
 
 import { TaskForm } from '../../app/components/TaskForm'
-import type { ExtractionResult } from '../../app/lib/extraction-types'
-
-// Mock extraction data with mixed confidence scores
-const mockExtraction: ExtractionResult = {
-  client_name: 'Kim Minjoo',
-  phone: '010-1234-5678',
-  service: 'Thai massage',
-  preferred_datetime: '2026-04-05T14:00',
-  notes: 'First time customer',
-  request_type: 'new_booking',
-  confidence: {
-    client_name: 0.95,       // high -- no indicator
-    phone: 0.85,             // high -- no indicator
-    service: 0.5,            // low -- amber indicator
-    preferred_datetime: 0.3, // low -- amber indicator
-    notes: 0.6,              // low -- amber indicator
-    request_type: 0.9,       // high -- no indicator
-  },
-}
 
 describe('TaskForm component', () => {
   const defaultProps = {
@@ -99,10 +84,8 @@ describe('TaskForm component', () => {
 
   it('renders Create Task title in create mode', () => {
     render(<TaskForm {...defaultProps} />)
-    // Title is in an h2, button also says "Create Task" so use getAllByText
     const elements = screen.getAllByText('Create Task')
     expect(elements.length).toBeGreaterThanOrEqual(1)
-    // The h2 title should exist
     const heading = elements.find((el) => el.tagName === 'H2')
     expect(heading).toBeInTheDocument()
   })
@@ -155,6 +138,11 @@ describe('TaskForm component', () => {
     expect(screen.getByText('Notes')).toBeInTheDocument()
   })
 
+  it('renders Attach Screenshot button in create mode', () => {
+    render(<TaskForm {...defaultProps} />)
+    expect(screen.getByRole('button', { name: /Attach Screenshot/i })).toBeInTheDocument()
+  })
+
   it('does not render when open is false', () => {
     render(<TaskForm {...defaultProps} open={false} />)
     expect(screen.queryByText('Create Task')).not.toBeInTheDocument()
@@ -183,80 +171,5 @@ describe('TaskForm component', () => {
     const deleteButton = screen.getByRole('button', { name: /Delete/i })
     fireEvent.click(deleteButton)
     expect(onDelete).toHaveBeenCalledWith('1')
-  })
-})
-
-describe('TaskForm screenshot integration', () => {
-  const defaultProps = {
-    mode: 'create' as const,
-    open: true,
-    onOpenChange: vi.fn(),
-  }
-
-  it('renders skeleton fields when isExtracting is true', () => {
-    render(<TaskForm {...defaultProps} isExtracting={true} />)
-
-    // Skeleton fields should be present (they use Skeleton component which renders divs with animate-pulse)
-    // Real form inputs should NOT be present
-    expect(screen.queryByLabelText('Client Name')).not.toBeInTheDocument()
-    expect(screen.queryByLabelText('Phone Number')).not.toBeInTheDocument()
-
-    // But the skeleton labels should still be visible
-    expect(screen.getByText('Client Name')).toBeInTheDocument()
-    expect(screen.getByText('Phone Number')).toBeInTheDocument()
-    expect(screen.getByText('Service Requested')).toBeInTheDocument()
-    expect(screen.getByText('Notes')).toBeInTheDocument()
-  })
-
-  it('renders pre-filled fields when extractedData is provided', async () => {
-    render(
-      <TaskForm
-        {...defaultProps}
-        extractedData={mockExtraction}
-      />,
-    )
-
-    // Wait for the useEffect to fire and reset the form
-    await waitFor(() => {
-      const clientInput = screen.getByLabelText('Client Name', { exact: false }) as HTMLInputElement
-      expect(clientInput.value).toBe('Kim Minjoo')
-    })
-
-    const phoneInput = screen.getByLabelText('Phone Number', { exact: false }) as HTMLInputElement
-    expect(phoneInput.value).toBe('010-1234-5678')
-
-    const serviceInput = screen.getByLabelText('Service Requested') as HTMLInputElement
-    expect(serviceInput.value).toBe('Thai massage')
-  })
-
-  it('renders amber confidence indicators on low-confidence fields', () => {
-    render(
-      <TaskForm
-        {...defaultProps}
-        extractedData={mockExtraction}
-      />,
-    )
-
-    // Low-confidence fields (service: 0.5, preferred_datetime: 0.3, notes: 0.6)
-    // should have confidence-low class wrapper
-    const confidenceLowElements = document.querySelectorAll('.confidence-low')
-    // service, preferred_datetime, and notes are low confidence
-    expect(confidenceLowElements.length).toBe(3)
-  })
-
-  it('does NOT render confidence indicators when extractedData is null (manual create)', () => {
-    render(<TaskForm {...defaultProps} />)
-
-    // No confidence indicators should be present
-    const confidenceLowElements = document.querySelectorAll('.confidence-low')
-    expect(confidenceLowElements.length).toBe(0)
-  })
-
-  it('shows Processing... and disables submit button when isExtracting is true', () => {
-    render(<TaskForm {...defaultProps} isExtracting={true} />)
-
-    const submitButton = screen.getByRole('button', { name: /Processing/i })
-    expect(submitButton).toBeInTheDocument()
-    expect(submitButton).toBeDisabled()
   })
 })

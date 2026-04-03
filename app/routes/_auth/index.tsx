@@ -1,9 +1,6 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { fetchTasks, deleteTask as deleteTaskFn } from '~/server/tasks'
-import { processScreenshot } from '~/server/screenshot'
-import { validateImageFile, prepareImage, ACCEPTED_EXTENSIONS } from '~/lib/image-utils'
-import type { ExtractionResult } from '~/lib/extraction-types'
 import { TaskBoard } from '~/components/TaskBoard'
 import { Header } from '~/components/Header'
 import { TaskForm } from '~/components/TaskForm'
@@ -16,7 +13,7 @@ import { useOnlineStatus } from '~/hooks/useOnlineStatus'
 import { useInstallPrompt } from '~/hooks/useInstallPrompt'
 import { usePushSubscription } from '~/hooks/usePushSubscription'
 import type { TaskWithStaff } from '~/components/TaskRow'
-import { Toaster, toast } from 'sonner'
+import { Toaster } from 'sonner'
 
 const INSTALL_DISMISSED_KEY = 'maison-install-dismissed'
 
@@ -53,79 +50,20 @@ function BoardPage() {
   const [formMode, setFormMode] = useState<'create' | 'edit'>('create')
   const [editingTask, setEditingTask] = useState<TaskWithStaff | undefined>(undefined)
 
-  // Screenshot extraction state
-  const [extractedData, setExtractedData] = useState<ExtractionResult | null>(null)
-  const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null)
-  const [isExtracting, setIsExtracting] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
   // Delete dialog state
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deletingTaskId, setDeletingTaskId] = useState<string | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
 
-  function handleUploadScreenshot() {
-    fileInputRef.current?.click()
-  }
-
-  function handleCreateManually() {
-    setFormMode('create')
-    setEditingTask(undefined)
-    setExtractedData(null)
-    setScreenshotUrl(null)
-    setIsExtracting(false)
-    setFormOpen(true)
-  }
-
-  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    // Reset input so same file can be re-selected
-    e.target.value = ''
-
-    // Client-side validation
-    const validation = validateImageFile(file)
-    if (!validation.valid) {
-      toast.error(validation.error)
-      return
-    }
-
-    // Clear previous state and open form in skeleton state
-    setExtractedData(null)
-    setScreenshotUrl(null)
-    setIsExtracting(true)
+  function handleCreateTask() {
     setFormMode('create')
     setEditingTask(undefined)
     setFormOpen(true)
-
-    try {
-      const { base64, mediaType } = await prepareImage(file)
-      const result = await processScreenshot({ data: { imageBase64: base64, mediaType } })
-
-      if (result.success === true) {
-        setExtractedData(result.extraction)
-        setScreenshotUrl(result.screenshotUrl)
-      } else {
-        toast.error(result.error)
-        setExtractedData(null)
-        setScreenshotUrl(null)
-      }
-    } catch {
-      toast.error('Screenshot processing failed. Enter details manually.')
-      setExtractedData(null)
-      setScreenshotUrl(null)
-    } finally {
-      setIsExtracting(false)
-    }
   }
 
   function handleEditTask(task: TaskWithStaff) {
     setFormMode('edit')
     setEditingTask(task)
-    setExtractedData(null)
-    setScreenshotUrl(null)
-    setIsExtracting(false)
     setFormOpen(true)
   }
 
@@ -154,7 +92,6 @@ function BoardPage() {
 
   const handleInstallApp = useCallback(async () => {
     if (isIOS) {
-      // On iOS, show the install banner again (with instructions)
       setInstallDismissed(false)
       localStorage.removeItem(INSTALL_DISMISSED_KEY)
     } else {
@@ -163,8 +100,6 @@ function BoardPage() {
   }, [isIOS, promptInstall])
 
   const showInstallBanner = !isStandalone && !installDismissed
-
-  // On iOS, push only works in standalone mode -- hide push card and show install banner instead
   const showPushCard = pushPermission === 'default' && !(isIOS && !isStandalone)
 
   return (
@@ -172,8 +107,7 @@ function BoardPage() {
       <Toaster position="top-center" richColors />
       <Header
         user={user}
-        onUploadScreenshot={handleUploadScreenshot}
-        onCreateManually={handleCreateManually}
+        onCreateTask={handleCreateTask}
         isStandalone={isStandalone}
         installDismissed={installDismissed}
         onInstallApp={handleInstallApp}
@@ -208,18 +142,8 @@ function BoardPage() {
             mode={formMode}
             task={editingTask}
             open={formOpen}
-            onOpenChange={(open) => {
-              setFormOpen(open)
-              if (!open) {
-                setExtractedData(null)
-                setScreenshotUrl(null)
-                setIsExtracting(false)
-              }
-            }}
+            onOpenChange={setFormOpen}
             onDelete={handleDeleteRequest}
-            extractedData={extractedData}
-            screenshotUrl={screenshotUrl}
-            isExtracting={isExtracting}
           />
           <DeleteTaskDialog
             open={deleteOpen}
@@ -229,14 +153,6 @@ function BoardPage() {
           />
         </>
       )}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept={ACCEPTED_EXTENSIONS}
-        capture="environment"
-        className="hidden"
-        onChange={handleFileSelected}
-      />
     </div>
   )
 }
