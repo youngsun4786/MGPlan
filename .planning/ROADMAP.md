@@ -56,6 +56,13 @@ Plans:
 
 **Requirements:** NOTF-01, NOTF-02, NOTF-03, PWA-01, PWA-02, PWA-03
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — PWA foundation: vite-plugin-pwa, service worker, manifest, offline shell, install banner
+- [ ] 02-02-PLAN.md — Push subscription flow: permission card, subscription CRUD, UserMenu notifications indicator
+- [ ] 02-03-PLAN.md — Push dispatch: Supabase Edge Function, VAPID keys, webhook setup, e2e verification
+
 **Status:** 🔲 Not started
 
 ---
@@ -110,4 +117,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-03-31*
-*Last updated: 2026-04-01 after Phase 1 planning*
+*Last updated: 2026-04-02 after Phase 2 planning*
