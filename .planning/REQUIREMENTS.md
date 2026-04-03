@@ -7,9 +7,9 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: Staff can sign in with email and password
-- [ ] **AUTH-02**: Session persists across browser refresh and app reopen
-- [ ] **AUTH-03**: Protected routes redirect unauthenticated users to login
+- [x] **AUTH-01**: Staff can sign in with email and password
+- [x] **AUTH-02**: Session persists across browser refresh and app reopen
+- [x] **AUTH-03**: Protected routes redirect unauthenticated users to login
 
 ### Task Management
 
@@ -78,9 +78,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
 | TASK-01 | Phase 1 | Complete |
 | TASK-02 | Phase 1 | Complete |
 | TASK-03 | Phase 1 | Complete |
