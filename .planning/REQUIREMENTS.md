@@ -43,9 +43,9 @@
 
 ### PWA & Mobile
 
-- [ ] **PWA-01**: App is installable to home screen on iOS Safari and Android Chrome
-- [ ] **PWA-02**: App loads an offline shell when network is unavailable
-- [ ] **PWA-03**: UI is fully usable on mobile (375px+) and desktop (1024px+)
+- [x] **PWA-01**: App is installable to home screen on iOS Safari and Android Chrome
+- [x] **PWA-02**: App loads an offline shell when network is unavailable
+- [x] **PWA-03**: UI is fully usable on mobile (375px+) and desktop (1024px+)
 
 ## v2 Requirements
 
@@ -94,9 +94,9 @@
 | NOTF-01 | Phase 2 | Pending |
 | NOTF-02 | Phase 2 | Pending |
 | NOTF-03 | Phase 2 | Pending |
-| PWA-01 | Phase 2 | Pending |
-| PWA-02 | Phase 2 | Pending |
-| PWA-03 | Phase 2 | Pending |
+| PWA-01 | Phase 2 | Complete |
+| PWA-02 | Phase 2 | Complete |
+| PWA-03 | Phase 2 | Complete |
 | AI-01 | Phase 3 | Pending |
 | AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |

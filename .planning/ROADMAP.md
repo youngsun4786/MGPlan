@@ -59,7 +59,7 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — PWA foundation: vite-plugin-pwa, service worker, manifest, offline shell, install banner
+- [x] 02-01-PLAN.md — PWA foundation: vite-plugin-pwa, service worker, manifest, offline shell, install banner
 - [ ] 02-02-PLAN.md — Push subscription flow: permission card, subscription CRUD, UserMenu notifications indicator
 - [ ] 02-03-PLAN.md — Push dispatch: Supabase Edge Function, VAPID keys, webhook setup, e2e verification
 
