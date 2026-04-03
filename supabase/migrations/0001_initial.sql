@@ -13,6 +13,8 @@ CREATE TABLE public.staff (
 ALTER TABLE public.staff ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "staff can read all staff"
   ON public.staff FOR SELECT TO authenticated USING (true);
+CREATE POLICY "staff can insert own record"
+  ON public.staff FOR INSERT TO authenticated WITH CHECK (id = auth.uid());
 
 -- Tasks table
 CREATE TABLE public.tasks (
