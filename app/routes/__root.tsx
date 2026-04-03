@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { createRootRoute, Outlet, HeadContent, Scripts } from '@tanstack/react-router'
 import appCss from '~/styles/globals.css?url'
+import { registerServiceWorker } from '~/lib/sw-register'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -24,6 +26,10 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+  useEffect(() => {
+    registerServiceWorker()
+  }, [])
+
   return (
     <html lang="ko">
       <head>

@@ -11,9 +11,12 @@ import { supabaseBrowserClient } from '~/lib/supabase.browser'
 
 interface UserMenuProps {
   user: { display_name: string; email: string }
+  isStandalone?: boolean
+  installDismissed?: boolean
+  onInstallApp?: () => void
 }
 
-export function UserMenu({ user }: UserMenuProps) {
+export function UserMenu({ user, isStandalone, installDismissed, onInstallApp }: UserMenuProps) {
   const initial = user.display_name.charAt(0).toUpperCase()
 
   async function handleSignOut() {
@@ -37,6 +40,12 @@ export function UserMenu({ user }: UserMenuProps) {
               <span className="text-xs text-slate-500">{user.email}</span>
             </div>
           </DropdownMenuLabel>
+          {!isStandalone && installDismissed && onInstallApp && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={onInstallApp}>Install app</DropdownMenuItem>
+            </>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
         </DropdownMenuGroup>
