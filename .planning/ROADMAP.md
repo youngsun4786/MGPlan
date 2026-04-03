@@ -35,9 +35,9 @@ Plans:
 - [x] 01-02-PLAN.md — Auth flow: login page, protected routes, session persistence
 - [x] 01-03-PLAN.md — Task CRUD server functions and Zod validation schemas
 - [x] 01-04-PLAN.md — Board UI: header, task list, status badges, realtime subscription
-- [ ] 01-05-PLAN.md — Task form (create/edit), delete dialog, CRUD wiring, visual checkpoint
+- [x] 01-05-PLAN.md — Task form (create/edit), delete dialog, CRUD wiring, visual checkpoint
 
-**Status:** 🔲 Not started
+**Status:** Complete (5/5 plans)
 
 ---
 
@@ -110,7 +110,7 @@ Plans:
 
 | Phase | Focus | Key Outcome | Status |
 |-------|-------|-------------|--------|
-| 1 — Foundation | Auth + CRUD + Realtime | Working shared task board | 🔲 |
+| 1 — Foundation | Auth + CRUD + Realtime | Working shared task board | Done |
 | 2 — PWA + Push | Native feel + notifications | Installed on phones, push alerts | 🔲 |
 | 3 — AI OCR | Screenshot auto-fill | No manual re-keying | 🔲 |
 | 4 — Polish | Filters + hardening | Production-stable | 🔲 |

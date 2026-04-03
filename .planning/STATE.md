@@ -24,19 +24,19 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 01 (Foundation & Core Board) — EXECUTING
-Plan: 2 of 5
+Phase: 01 (Foundation & Core Board) — COMPLETE
+Plan: 5 of 5 (all complete)
 
 - **Milestone:** v1.0
 - **Active phase:** 02-pwa-push-notifications
 - **Current Plan:** 1
-- **Next action:** Execute Plan 02-02 (Push Subscription)
+- **Next action:** Execute Plan 02-03 (Push Dispatch)
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 1 | Foundation & Core Board | In Progress (1/5 plans complete) |
+| 1 | Foundation & Core Board | Complete (5/5 plans) |
 | 2 | PWA + Push Notifications | In Progress (1/3 plans complete) |
 | 3 | AI Screenshot Processing | Not started |
 | 4 | Filters, Search & Hardening | Not started |
@@ -63,6 +63,7 @@ Plan: 2 of 5
 - vitest globals: true for @testing-library/jest-dom compatibility
 - Post-build SW script (scripts/build-sw.mjs) for TanStack Start Vite 7 environment builder compatibility
 - Global SW registration in __root.tsx (covers all routes including /login)
+- useEffect reset pattern for react-hook-form in dialogs (defaultValues only read on mount)
 
 ## Performance Metrics
 
@@ -74,6 +75,7 @@ Plan: 2 of 5
 | Phase 02 P01 | 22min | 2 tasks | 20 files |
 | Phase 02 P02 | 4min | 2 tasks | 10 files |
 | Phase 01 P02 | 2min | 2 tasks | 3 files |
+| Phase 01 P05 | ~15min | 4 tasks | 6 files |
 
 ## Open Issues
 
@@ -81,8 +83,8 @@ None.
 
 ## Session Continuity
 
-- **Last session:** 2026-04-03T16:02:41.599Z
-- **Stopped at:** Phase 01 checkpoint approved - full CRUD verified
+- **Last session:** 2026-04-02T10:04:00Z
+- **Stopped at:** Completed 01-05-PLAN.md - Phase 1 fully complete
 
 ---
 *State updated: 2026-04-02*
