@@ -1,4 +1,5 @@
 import { createServerClient, parseCookieHeader } from '@supabase/ssr'
+import { setCookie } from '@tanstack/react-start/server'
 import type { Database } from './database.types'
 
 export function getSupabaseServerClient(requestHeaders?: Headers) {
@@ -7,7 +8,11 @@ export function getSupabaseServerClient(requestHeaders?: Headers) {
     cookies: {
       getAll: () =>
         cookies.filter((c): c is { name: string; value: string } => c.value !== undefined),
-      setAll: () => {},
+      setAll: (cookiesToSet) => {
+        for (const { name, value, options } of cookiesToSet) {
+          setCookie(name, value, options)
+        }
+      },
     },
   })
 }
