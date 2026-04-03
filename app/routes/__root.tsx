@@ -6,12 +6,17 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'theme-color', content: '#ffffff' },
       { title: 'Maison Task Board' },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'apple-touch-icon',
+        href: '/apple-touch-icon.png',
       },
     ],
   }),
