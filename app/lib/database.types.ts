@@ -35,6 +35,7 @@ export type Database = {
           last_updated_by: string
           created_at: string
           updated_at: string
+          screenshot_url: string | null
         }
         Insert: {
           id?: string
@@ -49,6 +50,7 @@ export type Database = {
           last_updated_by: string
           created_at?: string
           updated_at?: string
+          screenshot_url?: string | null
         }
         Update: {
           id?: string
@@ -63,6 +65,7 @@ export type Database = {
           last_updated_by?: string
           created_at?: string
           updated_at?: string
+          screenshot_url?: string | null
         }
       }
       push_subscriptions: {

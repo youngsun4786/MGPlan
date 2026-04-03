@@ -43,3 +43,11 @@ export const deleteTaskSchema = z.object({
 })
 
 export type DeleteTaskInput = z.infer<typeof deleteTaskSchema>
+
+// Screenshot processing input (Phase 3 -- AI-02)
+export const screenshotInputSchema = z.object({
+  imageBase64: z.string().min(1, 'Image data is required'),
+  mediaType: z.enum(['image/jpeg', 'image/png', 'image/webp']),
+})
+
+export type ScreenshotInput = z.infer<typeof screenshotInputSchema>
