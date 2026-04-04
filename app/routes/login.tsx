@@ -10,7 +10,6 @@ export const Route = createFileRoute('/login')({
     expired: search.expired === 'true' ? ('true' as const) : undefined,
   }),
   beforeLoad: async () => {
-    // Use server function (not browser client) because beforeLoad runs on server during SSR
     const user = await getCurrentUser()
     if (user) throw redirect({ to: '/' })
   },
@@ -41,53 +40,82 @@ function LoginPage() {
       return
     }
 
-    // D-10: redirect to board
     window.location.href = '/'
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50">
-      <div className="mx-4 w-full max-w-[400px] rounded-lg bg-white p-8 shadow-sm">
-        <h1 className="text-[28px] font-semibold leading-[1.2]">Maison Task Board</h1>
-        <h2 className="mt-2 text-[20px] font-semibold leading-[1.2]">Sign in to Maison</h2>
+    <div className="flex min-h-screen items-center justify-center relative overflow-hidden">
+      {/* Background gradient mesh */}
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-primary/8 blur-[100px]" />
 
-        {expired === 'true' && (
-          <p className="mt-4 text-sm text-slate-600">Your session expired. Please sign in again.</p>
-        )}
+      <div className="relative z-10 mx-4 w-full max-w-[420px]">
+        <div className="glass-strong rounded-2xl p-8">
+          {/* Logo mark */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-xl bg-primary/20 flex items-center justify-center glow-accent">
+              <span className="text-primary font-heading font-bold text-lg">M</span>
+            </div>
+            <div>
+              <h1 className="font-heading text-xl font-semibold tracking-tight text-foreground">Maison</h1>
+              <p className="text-xs text-muted-foreground tracking-wide uppercase">Task Board</p>
+            </div>
+          </div>
 
-        <form onSubmit={handleLogin} className="mt-6 space-y-4">
-          <Input
-            name="email"
-            type="email"
-            placeholder="Email"
-            required
-            className="min-h-[44px] focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            className="min-h-[44px] focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-          />
+          <h2 className="font-heading text-2xl font-semibold tracking-tight">Welcome back</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Sign in to your account</p>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {expired === 'true' && (
+            <div className="mt-4 rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2">
+              <p className="text-sm text-destructive">Your session expired. Please sign in again.</p>
+            </div>
+          )}
 
-          <Button
-            type="submit"
-            disabled={loading}
-            className="min-h-[44px] w-full bg-blue-600 text-white hover:bg-blue-700"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </Button>
-        </form>
+          <form onSubmit={handleLogin} className="mt-6 space-y-4">
+            <div className="space-y-1.5">
+              <label className="text-sm text-muted-foreground">Email</label>
+              <Input
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+                className="h-11 bg-secondary/50 border-border/50 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/50 focus-visible:border-primary/30 rounded-xl"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm text-muted-foreground">Password</label>
+              <Input
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                required
+                className="h-11 bg-secondary/50 border-border/50 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/50 focus-visible:border-primary/30 rounded-xl"
+              />
+            </div>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
-          Don't have an account?{' '}
-          <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-700">
-            Create one
-          </Link>
-        </p>
+            {error && (
+              <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2">
+                <p className="text-sm text-destructive">{error}</p>
+              </div>
+            )}
+
+            <Button
+              type="submit"
+              disabled={loading}
+              className="h-11 w-full rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all glow-accent"
+            >
+              {loading ? 'Signing in...' : 'Sign In'}
+            </Button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            Don't have an account?{' '}
+            <Link to="/signup" className="font-medium text-primary hover:text-primary/80 transition-colors">
+              Create one
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   )
