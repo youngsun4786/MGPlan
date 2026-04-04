@@ -109,10 +109,10 @@ Plans:
 
 **Requirements:** FILT-01, FILT-02, FILT-03, FILT-04 + full QA pass across all v1 requirements
 
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] 04-01-PLAN.md — Pure filter logic (applyFilters + tests), useFilterState hook, FilterBar component
+- [x] 04-01-PLAN.md — Pure filter logic (applyFilters + tests), useFilterState hook, FilterBar component
 - [ ] 04-02-PLAN.md — Wire FilterBar into TaskBoard and board page, empty state handling
 - [ ] 04-03-PLAN.md — Accessibility polish, hardening checklist, visual verification checkpoint
 
@@ -127,7 +127,7 @@ Plans:
 | 1 — Foundation | Auth + CRUD + Realtime | Working shared task board | Done |
 | 2 — PWA + Push | Native feel + notifications | Installed on phones, push alerts | 🔲 |
 | 3 — AI OCR | Screenshot auto-fill | No manual re-keying | 🔲 |
-| 4 — Polish | Filters + hardening | Production-stable | 🔲 |
+| 4 — Polish | 1/3 | In Progress|  |
 
 ---
 *Roadmap created: 2026-03-31*
