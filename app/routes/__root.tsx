@@ -8,7 +8,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'theme-color', content: '#ffffff' },
+      { name: 'theme-color', content: '#1a1a2e' },
       { title: 'Maison Task Board' },
     ],
     links: [
@@ -35,7 +35,7 @@ function RootComponent() {
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-screen bg-white font-sans antialiased">
+      <body className="min-h-screen bg-background font-sans antialiased text-foreground">
         <Outlet />
         <Scripts />
       </body>
