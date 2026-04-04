@@ -1,6 +1,7 @@
 ---
 phase: 04-filters-search-hardening
 plan: 03
+status: complete
 subsystem: ui
 tags: [a11y, hardening, rls-audit, toast, wcag]
 
