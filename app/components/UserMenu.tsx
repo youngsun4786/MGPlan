@@ -40,14 +40,22 @@ export function UserMenu({
   }, [])
 
   function toggleTheme() {
-    const newDark = !isDark
-    setIsDark(newDark)
-    if (newDark) {
-      document.documentElement.classList.remove('light')
-      localStorage.setItem('maison-theme', 'dark')
+    const apply = () => {
+      const newDark = !isDark
+      setIsDark(newDark)
+      if (newDark) {
+        document.documentElement.classList.remove('light')
+        localStorage.setItem('maison-theme', 'dark')
+      } else {
+        document.documentElement.classList.add('light')
+        localStorage.setItem('maison-theme', 'light')
+      }
+    }
+
+    if (document.startViewTransition) {
+      document.startViewTransition(apply)
     } else {
-      document.documentElement.classList.add('light')
-      localStorage.setItem('maison-theme', 'light')
+      apply()
     }
   }
 

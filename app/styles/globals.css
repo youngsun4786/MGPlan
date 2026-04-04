@@ -172,11 +172,15 @@
 }
 
 @layer base {
-  *,
-  *::before,
-  *::after {
+  * {
     @apply border-border outline-ring/50;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+  }
+
+  /* Smooth theme switch via View Transitions API */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 150ms;
+    animation-timing-function: ease-in-out;
   }
   body {
     @apply bg-background text-foreground antialiased;
