@@ -113,7 +113,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Pure filter logic (applyFilters + tests), useFilterState hook, FilterBar component
-- [ ] 04-02-PLAN.md — Wire FilterBar into TaskBoard and board page, empty state handling
+- [x] 04-02-PLAN.md — Wire FilterBar into TaskBoard and board page, empty state handling
 - [ ] 04-03-PLAN.md — Accessibility polish, hardening checklist, visual verification checkpoint
 
 **Status:** 🔲 Not started
