@@ -5,6 +5,7 @@ import type { Task } from '~/lib/database.types'
 import type { TaskStatus } from '~/lib/constants'
 import { TaskRow, type TaskWithStaff } from '~/components/TaskRow'
 import { applyFilters, type FilterState } from '~/lib/filters'
+import { toast } from 'sonner'
 
 interface TaskBoardProps {
   initialTasks: TaskWithStaff[]
@@ -97,7 +98,8 @@ export function TaskBoard({
     try {
       await updateTaskStatus({ data: { id: taskId, status: newStatus } })
     } catch {
-      // Revert on error -- refetch all
+      // Notify user per D-09 and revert on error -- refetch all
+      toast.error('Failed to update task status. Please try again.')
       const fresh = await fetchTasks()
       setTasks(fresh as TaskWithStaff[])
     }
