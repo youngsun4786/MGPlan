@@ -2,8 +2,8 @@
 phase: 04
 slug: filters-search-hardening
 status: draft
-nyquist_compliant: false
-wave_0_complete: false
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-03
 ---
 
@@ -36,12 +36,15 @@ created: 2026-04-03
 
 ## Per-Task Verification Map
 
-| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 04-01-01 | 01 | 1 | FILT-01 | unit | `npx vitest run tests/components/FilterBar.test.tsx` | ❌ W0 | ⬜ pending |
-| 04-01-02 | 01 | 1 | FILT-02 | unit | `npx vitest run tests/components/FilterBar.test.tsx` | ❌ W0 | ⬜ pending |
-| 04-01-03 | 01 | 1 | FILT-03 | unit | `npx vitest run tests/components/FilterBar.test.tsx` | ❌ W0 | ⬜ pending |
-| 04-01-04 | 01 | 1 | FILT-04 | unit | `npx vitest run tests/components/FilterBar.test.tsx` | ❌ W0 | ⬜ pending |
+| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | Status |
+|---------|------|------|-------------|-----------|-------------------|--------|
+| 04-01-01 | 01 | 1 | FILT-01, FILT-02, FILT-03, FILT-04 | unit (TDD) | `npx vitest run tests/lib/filters.test.ts` | ⬜ pending |
+| 04-01-02 | 01 | 1 | FILT-01, FILT-02, FILT-03, FILT-04 | build | `npx vitest run` | ⬜ pending |
+| 04-01-03 | 01 | 1 | FILT-01, FILT-02, FILT-03, FILT-04 | build | `npx vitest run` | ⬜ pending |
+| 04-02-01 | 02 | 2 | FILT-01, FILT-02, FILT-03, FILT-04 | integration | `npx vitest run` | ⬜ pending |
+| 04-02-02 | 02 | 2 | FILT-01, FILT-02, FILT-03, FILT-04 | integration | `npx vitest run` | ⬜ pending |
+| 04-03-01 | 03 | 3 | QA pass | a11y + hardening | `npx vitest run` | ⬜ pending |
+| 04-03-02 | 03 | 3 | FILT-01, FILT-02, FILT-03, FILT-04 | checkpoint | manual | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -49,8 +52,7 @@ created: 2026-04-03
 
 ## Wave 0 Requirements
 
-- [ ] `tests/components/FilterBar.test.tsx` — stubs for FILT-01 through FILT-04
-- [ ] `tests/hooks/useFilterState.test.ts` — filter logic unit tests
+No Wave 0 stubs needed. Task 04-01-01 creates `tests/lib/filters.test.ts` as part of its TDD RED phase. All subsequent tasks verify via `npx vitest run` (full suite).
 
 *Existing infrastructure covers test framework — vitest and testing-library already installed.*
 
@@ -62,18 +64,18 @@ created: 2026-04-03
 |----------|-------------|------------|-------------------|
 | Cross-browser smoke | QA pass | Requires real browsers | Test on iOS Safari, Android Chrome, macOS Chrome, Windows Chrome |
 | Lighthouse audit | QA pass | Requires browser DevTools | Run Lighthouse in Chrome DevTools, target 90+ mobile |
-| RLS audit | QA pass | Requires Supabase Dashboard | Verify policies in Dashboard → Auth → Policies |
+| RLS audit | QA pass | Requires Supabase Dashboard | Verify policies in Dashboard -> Auth -> Policies |
 | Mobile filter bar usability | FILT-01-04 | Touch target / overflow | Test on 375px viewport with touch |
 
 ---
 
 ## Validation Sign-Off
 
-- [ ] All tasks have `<automated>` verify or Wave 0 dependencies
-- [ ] Sampling continuity: no 3 consecutive tasks without automated verify
-- [ ] Wave 0 covers all MISSING references
-- [ ] No watch-mode flags
-- [ ] Feedback latency < 5s
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify or are manual checkpoints
+- [x] Sampling continuity: no 3 consecutive tasks without automated verify
+- [x] No phantom Wave 0 references — test file created by Task 04-01-01 TDD
+- [x] No watch-mode flags
+- [x] Feedback latency < 5s
+- [x] `nyquist_compliant: true` set in frontmatter
 
 **Approval:** pending
