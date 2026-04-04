@@ -30,6 +30,13 @@ vi.mock('~/server/tasks', () => ({
 }))
 
 import { TaskBoard } from '../../app/components/TaskBoard'
+import { DEFAULT_FILTERS } from '../../app/lib/filters'
+
+const defaultFilterProps = {
+  filters: { ...DEFAULT_FILTERS, statuses: new Set(), requestTypes: new Set() } as const,
+  hasActiveFilters: false,
+  onClearFilters: vi.fn(),
+}
 
 const mockTask = {
   id: '1',
@@ -53,23 +60,25 @@ describe('TaskBoard component', () => {
   })
 
   it('renders task rows sorted by created_at ASC (TASK-03)', () => {
-    render(<TaskBoard initialTasks={[mockTask]} onEditTask={vi.fn()} />)
+    render(<TaskBoard initialTasks={[mockTask]} onEditTask={vi.fn()} {...defaultFilterProps} />)
     expect(screen.getByText('Kim Minjun')).toBeDefined()
   })
 
   it('displays empty state when no tasks exist', () => {
-    render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} />)
+    render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} {...defaultFilterProps} />)
     expect(screen.getByText('No tasks yet')).toBeDefined()
   })
 
   it('subscribes to realtime channel on mount (RT-01)', () => {
-    render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} />)
+    render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} {...defaultFilterProps} />)
     expect(mockChannel).toHaveBeenCalledWith('tasks:all')
     expect(mockSubscribe).toHaveBeenCalled()
   })
 
   it('removes realtime channel on unmount (RT-01)', () => {
-    const { unmount } = render(<TaskBoard initialTasks={[]} onEditTask={vi.fn()} />)
+    const { unmount } = render(
+      <TaskBoard initialTasks={[]} onEditTask={vi.fn()} {...defaultFilterProps} />,
+    )
     unmount()
     expect(mockRemoveChannel).toHaveBeenCalled()
   })

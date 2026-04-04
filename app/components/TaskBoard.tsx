@@ -4,13 +4,23 @@ import { fetchTasks, updateTaskStatus } from '~/server/tasks'
 import type { Task } from '~/lib/database.types'
 import type { TaskStatus } from '~/lib/constants'
 import { TaskRow, type TaskWithStaff } from '~/components/TaskRow'
+import { applyFilters, type FilterState } from '~/lib/filters'
 
 interface TaskBoardProps {
   initialTasks: TaskWithStaff[]
   onEditTask: (task: TaskWithStaff) => void
+  filters: FilterState
+  hasActiveFilters: boolean
+  onClearFilters: () => void
 }
 
-export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
+export function TaskBoard({
+  initialTasks,
+  onEditTask,
+  filters,
+  hasActiveFilters,
+  onClearFilters,
+}: TaskBoardProps) {
   const [tasks, setTasks] = useState<TaskWithStaff[]>(initialTasks)
 
   // Build a staff lookup cache from initial data and keep it updated
@@ -93,10 +103,8 @@ export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
     }
   }
 
-  // Sort tasks by created_at ASC (D-02 FIFO)
-  const sortedTasks = tasks
-    .slice()
-    .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+  // Apply filters and sort via applyFilters (single source of truth)
+  const filteredTasks = applyFilters(tasks, filters)
 
   if (tasks.length === 0) {
     return (
@@ -111,9 +119,29 @@ export function TaskBoard({ initialTasks, onEditTask }: TaskBoardProps) {
     )
   }
 
+  if (tasks.length > 0 && filteredTasks.length === 0) {
+    return (
+      <div className="max-w-[960px] mx-auto w-full">
+        <div className="flex flex-col items-center justify-center py-16 px-4">
+          <h2 className="text-xl font-semibold text-slate-600">No tasks match your filters</h2>
+          <p className="text-base text-slate-500 mt-2 text-center">
+            Try adjusting your filters or search terms.
+          </p>
+          <button
+            type="button"
+            onClick={onClearFilters}
+            className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-base"
+          >
+            Clear filters
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="max-w-[960px] mx-auto w-full">
-      {sortedTasks.map((task) => (
+    <div className="max-w-[960px] mx-auto w-full pb-24">
+      {filteredTasks.map((task) => (
         <TaskRow
           key={task.id}
           task={task}
