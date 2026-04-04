@@ -117,8 +117,8 @@ function BoardPage() {
   const showPushCard = pushPermission === 'default' && !(isIOS && !isStandalone)
 
   return (
-    <div className="min-h-screen bg-white">
-      <Toaster position="top-center" richColors />
+    <div className="min-h-screen bg-background">
+      <Toaster position="top-center" richColors theme="dark" />
       <Header
         user={user}
         onCreateTask={handleCreateTask}

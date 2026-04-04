@@ -23,16 +23,21 @@ export function Header({
   onEnableNotifications,
 }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-10 bg-white border-b border-slate-200">
+    <header className="sticky top-0 z-10 glass border-b border-border/50">
       <div className="h-14 flex items-center justify-between px-4 max-w-[960px] mx-auto w-full">
-        <h1 className="text-xl font-semibold">Maison Task Board</h1>
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
+            <span className="text-primary font-heading font-bold text-sm">M</span>
+          </div>
+          <h1 className="font-heading text-lg font-semibold tracking-tight">Maison</h1>
+        </div>
         <div className="flex items-center gap-2">
           <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white min-h-[44px]"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 min-h-[36px] rounded-xl px-3 gap-1.5 text-sm font-medium transition-all glow-accent"
             onClick={onCreateTask}
           >
             <Plus className="h-4 w-4" />
-            <span className="hidden sm:inline ml-1">New Task</span>
+            <span className="hidden sm:inline">New Task</span>
           </Button>
           <UserMenu
             user={user}

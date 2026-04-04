@@ -36,7 +36,7 @@ export function UserMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="bg-slate-200 text-slate-700 rounded-full w-9 h-9 min-h-[44px] min-w-[44px] flex items-center justify-center font-semibold text-sm outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 cursor-pointer"
+        className="bg-secondary text-secondary-foreground rounded-full w-9 h-9 min-h-[36px] min-w-[36px] flex items-center justify-center font-semibold text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer hover:bg-secondary/80 transition-colors"
         aria-label="User menu"
       >
         {initial}
@@ -46,7 +46,7 @@ export function UserMenu({
           <DropdownMenuLabel>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{user.display_name}</span>
-              <span className="text-xs text-slate-500">{user.email}</span>
+              <span className="text-xs text-muted-foreground">{user.email}</span>
             </div>
           </DropdownMenuLabel>
           {(pushState === 'denied' || pushState === 'dismissed') && (
