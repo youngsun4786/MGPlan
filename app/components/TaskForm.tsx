@@ -155,7 +155,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
           </DialogHeader>
 
           {imagePreviewUrl && (
-            <div className="flex items-center gap-2 rounded-lg border border-slate-200 p-2">
+            <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-secondary/30 p-2">
               <button
                 type="button"
                 className="shrink-0 rounded overflow-hidden"
@@ -167,7 +167,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                   className="h-12 w-12 object-cover"
                 />
               </button>
-              <span className="text-sm text-slate-600 truncate flex-1">
+              <span className="text-sm text-muted-foreground truncate flex-1">
                 {imageFile?.name ?? 'Screenshot'}
               </span>
               <Button
@@ -187,7 +187,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             <div>
               <Label htmlFor="client_name">
                 Client Name
-                <span className="text-red-600 ml-1">*</span>
+                <span className="text-destructive ml-1">*</span>
               </Label>
               <Input
                 id="client_name"
@@ -195,7 +195,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                 aria-describedby={errors.client_name ? 'client_name-error' : undefined}
               />
               {errors.client_name && (
-                <p id="client_name-error" className="text-red-600 text-sm mt-1" role="alert">
+                <p id="client_name-error" className="text-destructive text-sm mt-1" role="alert">
                   {errors.client_name.message}
                 </p>
               )}
@@ -205,7 +205,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             <div>
               <Label htmlFor="phone">
                 Phone Number
-                <span className="text-red-600 ml-1">*</span>
+                <span className="text-destructive ml-1">*</span>
               </Label>
               <Input
                 id="phone"
@@ -214,7 +214,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                 aria-describedby={errors.phone ? 'phone-error' : undefined}
               />
               {errors.phone && (
-                <p id="phone-error" className="text-red-600 text-sm mt-1" role="alert">
+                <p id="phone-error" className="text-destructive text-sm mt-1" role="alert">
                   {errors.phone.message}
                 </p>
               )}
@@ -230,7 +230,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             <div>
               <Label htmlFor="request_type">
                 Request Type
-                <span className="text-red-600 ml-1">*</span>
+                <span className="text-destructive ml-1">*</span>
               </Label>
               <Controller
                 name="request_type"
@@ -257,7 +257,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                 )}
               />
               {errors.request_type && (
-                <p id="request_type-error" className="text-red-600 text-sm mt-1" role="alert">
+                <p id="request_type-error" className="text-destructive text-sm mt-1" role="alert">
                   {errors.request_type.message}
                 </p>
               )}
@@ -279,7 +279,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
               <textarea
                 id="notes"
                 {...register('notes')}
-                className="flex w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 min-h-[80px] resize-y"
+                className="flex w-full rounded-lg border border-input bg-secondary/30 px-3 py-2 text-sm text-foreground outline-none transition-colors focus-visible:border-primary/30 focus-visible:ring-2 focus-visible:ring-primary/30 min-h-[80px] resize-y placeholder:text-muted-foreground/40"
               />
             </div>
 
@@ -327,7 +327,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white min-h-[44px]"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground min-h-[44px] rounded-xl glow-accent"
                   disabled={isSubmitting}
                 >
                   {isSubmitting
