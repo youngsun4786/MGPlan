@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { createFileRoute, redirect, useSearch } from '@tanstack/react-router'
+import { createFileRoute, redirect, useSearch, Link } from '@tanstack/react-router'
 import { supabaseBrowserClient } from '~/lib/supabase.browser'
 import { getCurrentUser } from '~/server/auth'
 import { Button } from '~/components/ui/button'
@@ -81,6 +81,13 @@ function LoginPage() {
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Don't have an account?{' '}
+          <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-700">
+            Create one
+          </Link>
+        </p>
       </div>
     </div>
   )

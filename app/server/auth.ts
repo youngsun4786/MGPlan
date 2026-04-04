@@ -38,10 +38,11 @@ export const getCurrentUser = createServerFn({ method: 'GET' }).handler(async ()
 
   // If staff record doesn't exist yet, return basic user info as fallback
   if (!staff) {
+    const displayName = user.user_metadata?.display_name || user.email?.split('@')[0] || 'User'
     return {
       id: user.id,
       email: user.email ?? '',
-      display_name: user.email?.split('@')[0] ?? 'User',
+      display_name: displayName,
     }
   }
 

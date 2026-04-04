@@ -11,13 +11,17 @@ import {
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 // Ensure staff record exists for the authenticated user (handles Dashboard-created users)
-async function ensureStaffRecord(supabase: SupabaseClient, user: { id: string; email?: string }) {
+async function ensureStaffRecord(
+  supabase: SupabaseClient,
+  user: { id: string; email?: string; user_metadata?: { display_name?: string } },
+) {
   const { data: existing } = await supabase.from('staff').select('id').eq('id', user.id).single()
   if (!existing) {
+    const displayName = user.user_metadata?.display_name || user.email?.split('@')[0] || 'User'
     await supabase.from('staff').upsert({
       id: user.id,
       email: user.email ?? '',
-      display_name: user.email?.split('@')[0] ?? 'User',
+      display_name: displayName,
     })
   }
 }
