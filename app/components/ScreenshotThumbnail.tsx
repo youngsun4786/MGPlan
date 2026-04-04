@@ -19,7 +19,7 @@ export function ScreenshotThumbnail({
       }}
       aria-label="View attached screenshot"
     >
-      <ImageIcon className="h-5 w-5 text-slate-400 cursor-pointer" />
+      <ImageIcon className="h-4 w-4 text-muted-foreground/50 hover:text-primary cursor-pointer transition-colors" />
     </button>
   )
 }
