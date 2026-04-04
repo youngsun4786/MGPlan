@@ -12,6 +12,8 @@ import { PushPermissionCard } from '~/components/PushPermissionCard'
 import { useOnlineStatus } from '~/hooks/useOnlineStatus'
 import { useInstallPrompt } from '~/hooks/useInstallPrompt'
 import { usePushSubscription } from '~/hooks/usePushSubscription'
+import { useFilterState } from '~/hooks/useFilterState'
+import { FilterBar } from '~/components/FilterBar'
 import type { TaskWithStaff } from '~/components/TaskRow'
 import { Toaster } from 'sonner'
 
@@ -36,6 +38,18 @@ function BoardPage() {
     subscribe: pushSubscribe,
     dismiss: pushDismiss,
   } = usePushSubscription({ isStandalone, isIOS })
+
+  const {
+    filters,
+    toggleStatus,
+    toggleRequestType,
+    setDateFrom,
+    setDateTo,
+    setSearch,
+    toggleSort,
+    clearAll,
+    hasActiveFilters,
+  } = useFilterState()
 
   const [installDismissed, setInstallDismissed] = useState(false)
 
@@ -136,7 +150,24 @@ function BoardPage() {
                 </div>
               )}
             </div>
-            <TaskBoard initialTasks={tasks} onEditTask={handleEditTask} />
+            <FilterBar
+              filters={filters}
+              toggleStatus={toggleStatus}
+              toggleRequestType={toggleRequestType}
+              setDateFrom={setDateFrom}
+              setDateTo={setDateTo}
+              setSearch={setSearch}
+              toggleSort={toggleSort}
+              clearAll={clearAll}
+              hasActiveFilters={hasActiveFilters}
+            />
+            <TaskBoard
+              initialTasks={tasks}
+              onEditTask={handleEditTask}
+              filters={filters}
+              hasActiveFilters={hasActiveFilters}
+              onClearFilters={clearAll}
+            />
           </main>
           <TaskForm
             mode={formMode}
