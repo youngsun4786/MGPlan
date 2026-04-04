@@ -112,8 +112,8 @@ export function TaskBoard({
     return (
       <div className="max-w-[960px] mx-auto w-full">
         <div className="flex flex-col items-center justify-center py-16 px-4">
-          <h2 className="text-xl font-semibold text-slate-600">No tasks yet</h2>
-          <p className="text-base text-slate-500 mt-2 text-center">
+          <h2 className="font-heading text-xl font-semibold text-muted-foreground">No tasks yet</h2>
+          <p className="text-sm text-muted-foreground/60 mt-2 text-center">
             Create your first task to start tracking client requests.
           </p>
         </div>
@@ -125,14 +125,16 @@ export function TaskBoard({
     return (
       <div className="max-w-[960px] mx-auto w-full">
         <div className="flex flex-col items-center justify-center py-16 px-4">
-          <h2 className="text-xl font-semibold text-slate-600">No tasks match your filters</h2>
-          <p className="text-base text-slate-500 mt-2 text-center">
+          <h2 className="font-heading text-xl font-semibold text-muted-foreground">
+            No tasks match your filters
+          </h2>
+          <p className="text-sm text-muted-foreground/60 mt-2 text-center">
             Try adjusting your filters or search terms.
           </p>
           <button
             type="button"
             onClick={onClearFilters}
-            className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-base"
+            className="mt-4 text-primary hover:text-primary/80 font-medium text-sm transition-colors"
           >
             Clear filters
           </button>
@@ -142,7 +144,7 @@ export function TaskBoard({
   }
 
   return (
-    <div className="max-w-[960px] mx-auto w-full pb-24">
+    <div className="max-w-[960px] mx-auto w-full pb-24 px-4 pt-2 space-y-0">
       {filteredTasks.map((task) => (
         <TaskRow
           key={task.id}

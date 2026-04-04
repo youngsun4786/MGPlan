@@ -47,7 +47,7 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
       role="button"
       tabIndex={0}
       className={cn(
-        'px-4 py-4 border-b border-slate-200 hover:bg-slate-50 min-h-[44px] cursor-pointer transition-colors',
+        'glass-card rounded-xl px-4 py-3.5 mb-2 cursor-pointer transition-all hover:bg-secondary/40',
         isDone && 'opacity-40',
       )}
       onClick={handleRowClick}
@@ -55,8 +55,8 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
     >
       {/* Top line: client name + screenshot thumbnail + status badge */}
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1 truncate">
-          <span className="text-base font-normal text-slate-900 truncate">{task.client_name}</span>
+        <div className="flex items-center gap-2 truncate">
+          <span className="text-[15px] font-medium text-foreground truncate">{task.client_name}</span>
           {task.screenshot_url && (
             <ScreenshotThumbnail
               screenshotUrl={task.screenshot_url}
@@ -68,15 +68,17 @@ export function TaskRow({ task, onStatusChange, onEdit }: TaskRowProps) {
       </div>
 
       {/* Bottom line: phone + request type */}
-      <div className="flex items-center gap-3 mt-1">
-        <span className="text-sm text-slate-600">{task.phone}</span>
-        <span className="text-sm text-slate-600">{REQUEST_TYPE_LABELS[task.request_type]}</span>
+      <div className="flex items-center gap-3 mt-1.5">
+        <span className="text-sm text-muted-foreground">{task.phone}</span>
+        <span className="text-xs text-muted-foreground/60 px-1.5 py-0.5 rounded bg-secondary/50">
+          {REQUEST_TYPE_LABELS[task.request_type]}
+        </span>
       </div>
 
-      {/* Last updated info (TASK-07) */}
-      <div className="mt-1">
-        <span className="text-xs text-slate-400">
-          Updated by {task.staff?.display_name ?? 'Unknown'} {formatRelativeTime(task.updated_at)}
+      {/* Last updated info */}
+      <div className="mt-1.5">
+        <span className="text-xs text-muted-foreground/50">
+          {task.staff?.display_name ?? 'Unknown'} · {formatRelativeTime(task.updated_at)}
         </span>
       </div>
 

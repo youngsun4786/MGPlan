@@ -7,22 +7,22 @@ interface StatusBadgeProps {
   disabled?: boolean
 }
 
-const STATUS_COLORS: Record<TaskStatus, string> = {
-  open: 'bg-amber-500 text-white hover:bg-amber-600',
-  in_progress: 'bg-blue-600 text-white hover:bg-blue-700',
-  done: 'bg-gray-500 text-white hover:bg-gray-600',
+const STATUS_STYLES: Record<TaskStatus, string> = {
+  open: 'bg-amber-500/15 text-amber-400 border-amber-500/20 hover:bg-amber-500/25',
+  in_progress: 'bg-primary/15 text-primary border-primary/20 hover:bg-primary/25',
+  done: 'bg-muted text-muted-foreground border-border/50 hover:bg-muted/80',
 }
 
 export function StatusBadge({ status, onClick, disabled }: StatusBadgeProps) {
   const label = TASK_STATUS_LABELS[status]
-  const colors = STATUS_COLORS[status]
+  const styles = STATUS_STYLES[status]
 
   const baseClasses = cn(
-    'min-h-[44px] min-w-[44px] inline-flex items-center justify-center',
-    'rounded-full px-3 py-1 text-sm font-medium',
-    'focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2',
-    'outline-none transition-colors',
-    colors,
+    'min-h-[32px] min-w-[32px] inline-flex items-center justify-center',
+    'rounded-lg px-2.5 py-1 text-xs font-medium border',
+    'focus-visible:ring-2 focus-visible:ring-primary/50',
+    'outline-none transition-all',
+    styles,
     disabled && 'opacity-50 cursor-not-allowed',
   )
 

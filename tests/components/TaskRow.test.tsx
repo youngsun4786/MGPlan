@@ -28,7 +28,7 @@ describe('TaskRow component', () => {
 
   it('shows last updated by display_name (TASK-07)', () => {
     render(<TaskRow task={mockTask} onStatusChange={vi.fn()} onEdit={vi.fn()} />)
-    expect(screen.getByText(/Updated by Kim/)).toBeDefined()
+    expect(screen.getByText(/Kim ·/)).toBeDefined()
   })
 
   it('applies opacity-60 class for done tasks', () => {
