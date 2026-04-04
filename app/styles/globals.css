@@ -85,6 +85,60 @@
     --sidebar-ring: oklch(0.72 0.12 192);
 }
 
+/* Light mode override */
+:root.light {
+    --background: oklch(0.98 0.002 260);
+    --foreground: oklch(0.15 0.005 260);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0.005 260);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.15 0.005 260);
+    --primary: oklch(0.55 0.15 192);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.95 0.003 260);
+    --secondary-foreground: oklch(0.25 0.005 260);
+    --muted: oklch(0.94 0.003 260);
+    --muted-foreground: oklch(0.45 0.005 260);
+    --accent: oklch(0.55 0.15 192);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.55 0.22 25);
+    --border: oklch(0 0 0 / 10%);
+    --input: oklch(0 0 0 / 8%);
+    --ring: oklch(0.55 0.15 192);
+    --sidebar: oklch(0.97 0.002 260);
+    --sidebar-foreground: oklch(0.15 0.005 260);
+    --sidebar-primary: oklch(0.55 0.15 192);
+    --sidebar-primary-foreground: oklch(1 0 0);
+    --sidebar-accent: oklch(0.95 0.003 260);
+    --sidebar-accent-foreground: oklch(0.15 0.005 260);
+    --sidebar-border: oklch(0 0 0 / 8%);
+    --sidebar-ring: oklch(0.55 0.15 192);
+}
+
+/* Glass surface utilities — adapt for light/dark */
+.light .glass {
+    background: oklch(1 0 0 / 70%);
+    backdrop-filter: blur(16px) saturate(1.2);
+    border: 1px solid oklch(0 0 0 / 8%);
+}
+
+.light .glass-strong {
+    background: oklch(1 0 0 / 80%);
+    backdrop-filter: blur(24px) saturate(1.3);
+    border: 1px solid oklch(0 0 0 / 10%);
+}
+
+.light .glass-card {
+    background: oklch(1 0 0 / 90%);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0 0 0 / 6%);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 5%);
+}
+
+.light .glow-accent {
+    box-shadow: 0 0 20px oklch(0.55 0.15 192 / 20%), 0 0 40px oklch(0.55 0.15 192 / 8%);
+}
+
 /* Glass surface utilities */
 @layer utilities {
   .glass {

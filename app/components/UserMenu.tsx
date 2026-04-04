@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -7,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from '~/components/ui/dropdown-menu'
+import { Moon, Sun } from 'lucide-react'
 import { supabaseBrowserClient } from '~/lib/supabase.browser'
 
 interface UserMenuProps {
@@ -27,6 +29,27 @@ export function UserMenu({
   onEnableNotifications,
 }: UserMenuProps) {
   const initial = user.display_name.charAt(0).toUpperCase()
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    const stored = localStorage.getItem('maison-theme')
+    if (stored === 'light') {
+      setIsDark(false)
+      document.documentElement.classList.add('light')
+    }
+  }, [])
+
+  function toggleTheme() {
+    const newDark = !isDark
+    setIsDark(newDark)
+    if (newDark) {
+      document.documentElement.classList.remove('light')
+      localStorage.setItem('maison-theme', 'dark')
+    } else {
+      document.documentElement.classList.add('light')
+      localStorage.setItem('maison-theme', 'light')
+    }
+  }
 
   async function handleSignOut() {
     await supabaseBrowserClient.auth.signOut()
@@ -41,14 +64,23 @@ export function UserMenu({
       >
         {initial}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8}>
+      <DropdownMenuContent
+        align="end"
+        sideOffset={8}
+        className="min-w-[200px] glass-strong rounded-xl"
+      >
         <DropdownMenuGroup>
           <DropdownMenuLabel>
-            <div className="flex flex-col">
+            <div className="flex flex-col py-1">
               <span className="text-sm font-medium">{user.display_name}</span>
-              <span className="text-xs text-muted-foreground">{user.email}</span>
+              <span className="text-xs text-muted-foreground truncate">{user.email}</span>
             </div>
           </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={toggleTheme} className="gap-2 cursor-pointer">
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {isDark ? 'Light mode' : 'Dark mode'}
+          </DropdownMenuItem>
           {(pushState === 'denied' || pushState === 'dismissed') && (
             <>
               <DropdownMenuSeparator />
@@ -63,7 +95,10 @@ export function UserMenu({
                   <span className="text-muted-foreground text-xs">Enable in browser settings</span>
                 </DropdownMenuItem>
               ) : (
-                <DropdownMenuItem className="text-muted-foreground" onClick={onEnableNotifications}>
+                <DropdownMenuItem
+                  className="text-muted-foreground cursor-pointer"
+                  onClick={onEnableNotifications}
+                >
                   Notifications off
                 </DropdownMenuItem>
               )}
@@ -72,11 +107,15 @@ export function UserMenu({
           {!isStandalone && installDismissed && onInstallApp && (
             <>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={onInstallApp}>Install app</DropdownMenuItem>
+              <DropdownMenuItem onClick={onInstallApp} className="cursor-pointer">
+                Install app
+              </DropdownMenuItem>
             </>
           )}
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive">
+            Sign Out
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
