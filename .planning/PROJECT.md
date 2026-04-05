@@ -43,14 +43,17 @@ Every incoming call gets logged and followed up — zero leads fall through the 
 
 ### Active
 
-(None — next milestone not yet planned)
+- [ ] Fix mobile photo picker to allow library selection (not just camera)
+- [ ] Fix TypeScript errors (tsc --noEmit clean)
+- [ ] Automated follow-up reminders when task stays Open >X hours
+- [ ] Analytics dashboard: calls/day, calls/week, avg Open→Done time, request type breakdown
 
 ### Out of Scope
 
 - Task assignment to specific staff — flat team, everyone handles everything
 - Fresha integration — they book there separately, this just tracks follow-up
 - KakaoTalk bot / message ingestion — screenshot upload covers this
-- Analytics / reporting — useful later, not core problem
+- ~~Analytics / reporting~~ — moved to Active for v1.1
 - Native iOS/Android app — PWA covers the use case
 - Role-based permissions — 3-5 person flat team
 
@@ -80,5 +83,14 @@ Email allowlist restricts signups to approved staff only (ALLOWED_SIGNUP_EMAILS 
 | PWA over native app | Avoids app store overhead; covers the mobile use case sufficiently | ✓ Good |
 | Server-side email allowlist | Prevents unauthorized signups; configurable via env var without code changes | ✓ Good |
 
+## Current Milestone: v1.1 Reminders, Analytics & Fixes
+
+**Goal:** Keep tasks from going stale with automated reminders, give visibility into call patterns, and fix production issues.
+
+**Target features:**
+- Fix mobile photo picker and TypeScript errors (production quality)
+- Automated push reminders to all staff when tasks stay Open too long
+- Analytics dashboard with 3 key metrics: volume, response time, request mix
+
 ---
-*Last updated: 2026-04-05 after v1.0 milestone*
+*Last updated: 2026-04-05 after v1.1 milestone start*
