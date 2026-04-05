@@ -1,6 +1,15 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getSupabaseServerClient } from '~/lib/supabase.server'
 import { getRequest } from '@tanstack/react-start/server'
+import { z } from 'zod'
+import { zodValidator } from '@tanstack/zod-adapter'
+
+const signUpSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+})
 
 export const getCurrentUser = createServerFn({ method: 'GET' }).handler(async () => {
   const request = getRequest()
@@ -48,3 +57,39 @@ export const getCurrentUser = createServerFn({ method: 'GET' }).handler(async ()
 
   return staff
 })
+
+function isEmailAllowed(email: string): boolean {
+  const allowlist = process.env.ALLOWED_SIGNUP_EMAILS
+  if (!allowlist) return false // no allowlist configured = no signups allowed
+  const allowed = allowlist.split(',').map((e) => e.trim().toLowerCase())
+  return allowed.includes(email.toLowerCase())
+}
+
+export const signUpUser = createServerFn({ method: 'POST' })
+  .inputValidator(zodValidator(signUpSchema))
+  .handler(async ({ data }) => {
+    if (!isEmailAllowed(data.email)) {
+      return { success: false as const, error: 'This email is not authorized to sign up.' }
+    }
+
+    const request = getRequest()
+    const supabase = getSupabaseServerClient(request.headers)
+
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          first_name: data.firstName,
+          last_name: data.lastName,
+          display_name: `${data.firstName} ${data.lastName}`,
+        },
+      },
+    })
+
+    if (error) {
+      return { success: false as const, error: error.message }
+    }
+
+    return { success: true as const }
+  })

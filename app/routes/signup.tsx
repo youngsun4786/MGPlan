@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute, redirect, Link } from '@tanstack/react-router'
-import { supabaseBrowserClient } from '~/lib/supabase.browser'
-import { getCurrentUser } from '~/server/auth'
+import { getCurrentUser, signUpUser } from '~/server/auth'
 import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 
@@ -42,20 +41,12 @@ function SignupPage() {
       return
     }
 
-    const { error: authError } = await supabaseBrowserClient.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          first_name: firstName,
-          last_name: lastName,
-          display_name: `${firstName} ${lastName}`,
-        },
-      },
+    const result = await signUpUser({
+      data: { email, password, firstName, lastName },
     })
 
-    if (authError) {
-      setError(authError.message)
+    if (!result.success) {
+      setError(result.error)
       setLoading(false)
       return
     }
@@ -73,13 +64,24 @@ function SignupPage() {
         <div className="relative z-10 mx-4 w-full max-w-[420px]">
           <div className="glass-strong rounded-2xl p-8 text-center">
             <div className="mx-auto h-14 w-14 rounded-2xl bg-primary/20 flex items-center justify-center glow-accent mb-6">
-              <svg className="h-7 w-7 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              <svg
+                className="h-7 w-7 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                />
               </svg>
             </div>
             <h2 className="font-heading text-2xl font-semibold tracking-tight">Check your email</h2>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              We've sent a confirmation link to your email address. Click the link to activate your account.
+              We've sent a confirmation link to your email address. Click the link to activate your
+              account.
             </p>
             <Link
               to="/login"
@@ -93,7 +95,8 @@ function SignupPage() {
     )
   }
 
-  const inputClasses = "h-11 bg-secondary/50 border-border/50 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/50 focus-visible:border-primary/30 rounded-xl"
+  const inputClasses =
+    'h-11 bg-secondary/50 border-border/50 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/50 focus-visible:border-primary/30 rounded-xl'
 
   return (
     <div className="flex min-h-screen items-center justify-center relative overflow-hidden">
@@ -108,7 +111,9 @@ function SignupPage() {
               <span className="text-primary font-heading font-bold text-lg">M</span>
             </div>
             <div>
-              <h1 className="font-heading text-xl font-semibold tracking-tight text-foreground">Maison</h1>
+              <h1 className="font-heading text-xl font-semibold tracking-tight text-foreground">
+                Maison
+              </h1>
               <p className="text-xs text-muted-foreground tracking-wide uppercase">Task Board</p>
             </div>
           </div>
@@ -120,24 +125,56 @@ function SignupPage() {
             <div className="flex gap-3">
               <div className="flex-1 space-y-1.5">
                 <label className="text-sm text-muted-foreground">First name</label>
-                <Input name="firstName" type="text" placeholder="Jane" required className={inputClasses} />
+                <Input
+                  name="firstName"
+                  type="text"
+                  placeholder="Jane"
+                  required
+                  className={inputClasses}
+                />
               </div>
               <div className="flex-1 space-y-1.5">
                 <label className="text-sm text-muted-foreground">Last name</label>
-                <Input name="lastName" type="text" placeholder="Kim" required className={inputClasses} />
+                <Input
+                  name="lastName"
+                  type="text"
+                  placeholder="Kim"
+                  required
+                  className={inputClasses}
+                />
               </div>
             </div>
             <div className="space-y-1.5">
               <label className="text-sm text-muted-foreground">Email</label>
-              <Input name="email" type="email" placeholder="you@example.com" required className={inputClasses} />
+              <Input
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+                className={inputClasses}
+              />
             </div>
             <div className="space-y-1.5">
               <label className="text-sm text-muted-foreground">Password</label>
-              <Input name="password" type="password" placeholder="••••••••" required minLength={6} className={inputClasses} />
+              <Input
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                required
+                minLength={6}
+                className={inputClasses}
+              />
             </div>
             <div className="space-y-1.5">
               <label className="text-sm text-muted-foreground">Confirm password</label>
-              <Input name="confirmPassword" type="password" placeholder="••••••••" required minLength={6} className={inputClasses} />
+              <Input
+                name="confirmPassword"
+                type="password"
+                placeholder="••••••••"
+                required
+                minLength={6}
+                className={inputClasses}
+              />
             </div>
 
             {error && (
@@ -157,7 +194,10 @@ function SignupPage() {
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-primary hover:text-primary/80 transition-colors">
+            <Link
+              to="/login"
+              className="font-medium text-primary hover:text-primary/80 transition-colors"
+            >
               Sign in
             </Link>
           </p>
