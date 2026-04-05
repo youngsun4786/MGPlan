@@ -37,20 +37,20 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FIX-01 | — | Pending |
-| FIX-02 | — | Pending |
-| REM-01 | — | Pending |
-| REM-02 | — | Pending |
-| REM-03 | — | Pending |
-| ANLYT-01 | — | Pending |
-| ANLYT-02 | — | Pending |
-| ANLYT-03 | — | Pending |
-| ANLYT-04 | — | Pending |
+| FIX-01 | Phase 5 | Pending |
+| FIX-02 | Phase 5 | Pending |
+| REM-01 | Phase 6 | Pending |
+| REM-02 | Phase 6 | Pending |
+| REM-03 | Phase 6 | Pending |
+| ANLYT-01 | Phase 7 | Pending |
+| ANLYT-02 | Phase 7 | Pending |
+| ANLYT-03 | Phase 7 | Pending |
+| ANLYT-04 | Phase 7 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 9 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 9
+- Mapped to phases: 9
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-05*
