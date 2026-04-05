@@ -5,6 +5,7 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { nitro } from 'nitro/vite';
 
 export default defineConfig({
   plugins: [
@@ -45,10 +46,11 @@ export default defineConfig({
       },
     }),
     process.env.VITEST !== 'true' &&
-      tanstackStart({
-        srcDirectory: 'app',
-      }),
+    tanstackStart({
+      srcDirectory: 'app',
+    }),
     viteReact(),
+    nitro(),
   ].filter(Boolean),
   test: {
     globals: true,
