@@ -182,9 +182,9 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             {/* Client Name */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="client_name">
                 Client Name
                 <span className="text-destructive ml-1">*</span>
@@ -202,7 +202,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             </div>
 
             {/* Phone Number */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="phone">
                 Phone Number
                 <span className="text-destructive ml-1">*</span>
@@ -221,13 +221,13 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             </div>
 
             {/* Service Requested */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="service">Service Requested</Label>
               <Input id="service" {...register('service')} />
             </div>
 
             {/* Request Type */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="request_type">
                 Request Type
                 <span className="text-destructive ml-1">*</span>
@@ -264,7 +264,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             </div>
 
             {/* Preferred Date/Time */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="preferred_datetime">Preferred Date/Time</Label>
               <Input
                 id="preferred_datetime"
@@ -274,7 +274,7 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
             </div>
 
             {/* Notes */}
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="notes">Notes</Label>
               <textarea
                 id="notes"

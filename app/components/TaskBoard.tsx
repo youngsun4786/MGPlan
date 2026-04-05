@@ -6,6 +6,7 @@ import type { TaskStatus } from '~/lib/constants'
 import { TaskRow, type TaskWithStaff } from '~/components/TaskRow'
 import { applyFilters, type FilterState } from '~/lib/filters'
 import { toast } from 'sonner'
+import { Inbox, SearchX } from 'lucide-react'
 
 interface TaskBoardProps {
   initialTasks: TaskWithStaff[]
@@ -111,9 +112,14 @@ export function TaskBoard({
   if (tasks.length === 0) {
     return (
       <div className="max-w-[960px] mx-auto w-full">
-        <div className="flex flex-col items-center justify-center py-16 px-4">
-          <h2 className="font-heading text-xl font-semibold text-muted-foreground">No tasks yet</h2>
-          <p className="text-sm text-muted-foreground/60 mt-2 text-center">
+        <div className="flex flex-col items-center justify-center py-20 px-4">
+          <div className="h-14 w-14 rounded-2xl bg-secondary/60 flex items-center justify-center mb-4">
+            <Inbox className="h-7 w-7 text-muted-foreground/40" />
+          </div>
+          <h2 className="font-heading text-xl font-semibold text-foreground/70 tracking-tight">
+            No tasks yet
+          </h2>
+          <p className="text-sm text-muted-foreground/50 mt-1.5 text-center max-w-[260px]">
             Create your first task to start tracking client requests.
           </p>
         </div>
@@ -124,17 +130,20 @@ export function TaskBoard({
   if (tasks.length > 0 && filteredTasks.length === 0) {
     return (
       <div className="max-w-[960px] mx-auto w-full">
-        <div className="flex flex-col items-center justify-center py-16 px-4">
-          <h2 className="font-heading text-xl font-semibold text-muted-foreground">
-            No tasks match your filters
+        <div className="flex flex-col items-center justify-center py-20 px-4">
+          <div className="h-14 w-14 rounded-2xl bg-secondary/60 flex items-center justify-center mb-4">
+            <SearchX className="h-7 w-7 text-muted-foreground/40" />
+          </div>
+          <h2 className="font-heading text-xl font-semibold text-foreground/70 tracking-tight">
+            No matching tasks
           </h2>
-          <p className="text-sm text-muted-foreground/60 mt-2 text-center">
+          <p className="text-sm text-muted-foreground/50 mt-1.5 text-center max-w-[260px]">
             Try adjusting your filters or search terms.
           </p>
           <button
             type="button"
             onClick={onClearFilters}
-            className="mt-4 text-primary hover:text-primary/80 font-medium text-sm transition-colors"
+            className="mt-5 text-primary hover:text-primary/80 font-medium text-sm transition-colors"
           >
             Clear filters
           </button>

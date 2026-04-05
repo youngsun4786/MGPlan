@@ -26,8 +26,8 @@ export function Header({
     <header className="sticky top-0 z-10 glass border-b border-border/50">
       <div className="h-14 flex items-center justify-between px-4 max-w-[960px] mx-auto w-full">
         <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-primary/20 flex items-center justify-center">
-            <span className="text-primary font-heading font-bold text-sm">M</span>
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-1 ring-primary/20">
+            <span className="text-gradient font-heading font-bold text-sm">M</span>
           </div>
           <h1 className="font-heading text-lg font-semibold tracking-tight">Maison</h1>
         </div>

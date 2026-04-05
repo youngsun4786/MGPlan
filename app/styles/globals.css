@@ -169,6 +169,32 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* Card elevation — hover lift with expanding shadow */
+  .card-elevated {
+    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  }
+  .card-elevated:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px oklch(0 0 0 / 15%), 0 1px 4px oklch(0 0 0 / 8%);
+  }
+  .light .card-elevated:hover {
+    box-shadow: 0 4px 16px oklch(0 0 0 / 8%), 0 1px 4px oklch(0 0 0 / 4%);
+  }
+
+  /* Status accent bar — left border colors */
+  .accent-open { border-left: 3px solid oklch(0.75 0.15 70); }
+  .accent-in_progress { border-left: 3px solid oklch(0.72 0.12 192); }
+  .accent-done { border-left: 3px solid oklch(0.55 0 0); }
+
+  /* Pulse dot for open status */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .animate-pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
 }
 
 @layer base {

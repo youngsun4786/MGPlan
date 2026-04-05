@@ -51,10 +51,10 @@ export function FilterBar({
 
   return (
     <div className={cn('sticky', BELOW_HEADER_TOP_CLASS, 'z-[5] glass border-b border-border/30')}>
-      <div className="max-w-[960px] mx-auto px-4 py-3 space-y-3">
+      <div className="max-w-[960px] mx-auto px-4 py-3 space-y-2.5">
         {/* Search bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50 pointer-events-none" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 pointer-events-none" />
           <input
             type="text"
             value={filters.search}
@@ -66,7 +66,7 @@ export function FilterBar({
         </div>
 
         {/* Status chips + sort + clear */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 rounded-lg bg-secondary/20 px-2.5 py-2">
           <div role="group" aria-label="Filter by status" className="flex items-center gap-2">
             {(Object.keys(TASK_STATUS_LABELS) as TaskStatus[]).map((status) => {
               const isActive = filters.statuses.has(status)
@@ -113,8 +113,12 @@ export function FilterBar({
         </div>
 
         {/* Request type + Date range */}
-        <div className="flex flex-wrap items-center gap-2">
-          <div role="group" aria-label="Filter by request type" className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-2 rounded-lg bg-secondary/20 px-2.5 py-2">
+          <div
+            role="group"
+            aria-label="Filter by request type"
+            className="flex flex-wrap items-center gap-1.5"
+          >
             {(Object.keys(REQUEST_TYPE_LABELS) as RequestType[]).map((type) => {
               const isActive = filters.requestTypes.has(type)
               return (
