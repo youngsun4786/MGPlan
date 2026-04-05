@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-current_plan: Not started
-status: Milestone complete
-stopped_at: Completed 04-03-PLAN.md (Task 1 only, Task 2 checkpoint pending)
-last_updated: "2026-04-04T19:51:54.697Z"
+milestone_name: MVP
+current_plan: N/A
+status: v1.0 milestone complete
+stopped_at: v1.0 shipped and archived
+last_updated: "2026-04-05T17:15:00.000Z"
 progress:
   total_phases: 4
   completed_phases: 4
@@ -17,29 +17,15 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-31)
+See: .planning/PROJECT.md (updated 2026-04-05)
 
 **Core value:** Every incoming call gets logged and followed up — zero leads fall through the cracks.
-**Current focus:** Phase 04 — filters-search-hardening
+**Current focus:** v1.0 shipped. Planning next milestone.
 
 ## Current Position
 
-Phase: 04
-Plan: 3 of 3
-
-- **Milestone:** v1.0
-- **Active phase:** 02-pwa-push-notifications
-- **Current Plan:** Not started
-- **Next action:** Execute Plan 02-03 (Push Dispatch)
-
-## Phase Status
-
-| Phase | Name | Status |
-|-------|------|--------|
-| 1 | Foundation & Core Board | Complete (5/5 plans) |
-| 2 | PWA + Push Notifications | In Progress (1/3 plans complete) |
-| 3 | AI Screenshot Processing | Not started |
-| 4 | Filters, Search & Hardening | Not started |
+- **Milestone:** v1.0 MVP — ✅ SHIPPED 2026-04-05
+- **Next action:** `/gsd:new-milestone` when ready for v1.1
 
 ## Tech Stack
 
@@ -51,44 +37,5 @@ Plan: 3 of 3
 - **Styling:** Tailwind CSS v4 + shadcn
 - **Deployment:** Vercel + Supabase cloud
 
-## Key Decisions
-
-- TanStack Start chosen over Next.js (user preference, Vite-based)
-- Supabase for hosted Postgres + realtime + auth (no server to manage)
-- Claude vision for screenshot OCR (best for mixed Korean/English screenshots)
-- Web Push + VAPID over OneSignal (no third-party lock-in, free)
-- PWA over native app (avoids app store overhead)
-- app.config.ts removed: @tanstack/react-start/config no longer exists; Vercel preset at platform level
-- srcDirectory: 'app' for TanStack Start (default is 'src')
-- vitest globals: true for @testing-library/jest-dom compatibility
-- Post-build SW script (scripts/build-sw.mjs) for TanStack Start Vite 7 environment builder compatibility
-- Global SW registration in __root.tsx (covers all routes including /login)
-- useEffect reset pattern for react-hook-form in dialogs (defaultValues only read on mount)
-
-## Performance Metrics
-
-| Phase-Plan | Duration | Tasks | Files |
-|------------|----------|-------|-------|
-| 01-01      | 13min    | 3     | 21    |
-| Phase 01 P03 | 2min | 2 tasks | 3 files |
-| Phase 01 P04 | 4min | 3 tasks | 8 files |
-| Phase 02 P01 | 22min | 2 tasks | 20 files |
-| Phase 02 P02 | 4min | 2 tasks | 10 files |
-| Phase 01 P02 | 2min | 2 tasks | 3 files |
-| Phase 01 P05 | ~15min | 4 tasks | 6 files |
-| Phase 03 P01 | 3min | 3 tasks | 12 files |
-| Phase 03 P02 | 6min | 3 tasks | 13 files |
-| Phase 04 P02 | 3min | 2 tasks | 3 files |
-| Phase 04 P03 | 2min | 1 tasks | 3 files |
-
-## Open Issues
-
-None.
-
-## Session Continuity
-
-- **Last session:** 2026-04-04T02:14:25.899Z
-- **Stopped at:** Completed 04-03-PLAN.md (Task 1 only, Task 2 checkpoint pending)
-
 ---
-*State updated: 2026-04-02*
+*State updated: 2026-04-05*

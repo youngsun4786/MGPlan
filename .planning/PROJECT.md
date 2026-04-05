@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A shared task board for a small massage shop (3-5 staff) that captures incoming call leads and change requests. Staff log every call as a task — the whole team sees open items in real time, gets push-notified on new ones, and marks them done after calling back and booking in Fresha. Replaces a chaotic KakaoTalk screenshot workflow where 1-2 leads were missed daily.
+A shared task board for a small massage shop (3-5 staff) that captures incoming call leads and change requests. Staff log every call as a task — the whole team sees open items in real time, gets push-notified on new ones, and marks them done after calling back and booking in Fresha. Screenshots of KakaoTalk messages are auto-parsed by Claude Vision to pre-fill the form. Deployed as a PWA installable on iOS and Android.
 
 ## Core Value
 
@@ -12,40 +12,55 @@ Every incoming call gets logged and followed up — zero leads fall through the 
 
 ### Validated
 
-<!-- Shipped and confirmed valuable. -->
-
-(None yet — ship to validate)
+- ✓ AUTH-01: Staff can sign in with email and password — v1.0
+- ✓ AUTH-02: Session persists across browser refresh and app reopen — v1.0
+- ✓ AUTH-03: Protected routes redirect unauthenticated users to login — v1.0
+- ✓ TASK-01: Manual task creation form with all fields — v1.0
+- ✓ TASK-02: Request type supports New Booking, Change Time, Change Therapist, Other — v1.0
+- ✓ TASK-03: Shared task board across all staff — v1.0
+- ✓ TASK-04: Status transitions Open → In Progress → Done — v1.0
+- ✓ TASK-05: Staff can edit a task after creation — v1.0
+- ✓ TASK-06: Staff can delete a task — v1.0
+- ✓ TASK-07: Task shows last updater and timestamp — v1.0
+- ✓ TASK-08: Form validates required fields with error messages — v1.0
+- ✓ RT-01: Real-time board updates across devices — v1.0
+- ✓ RT-02: New tasks appear instantly on all sessions — v1.0
+- ✓ AI-01: Screenshot upload (drag-and-drop / tap) — v1.0
+- ✓ AI-02: Claude vision extracts fields from screenshots — v1.0
+- ✓ AI-03: Extracted fields pre-fill the form — v1.0
+- ✓ AI-04: Low-confidence fields visually flagged — v1.0
+- ✓ AI-05: Unreadable screenshots fall back to manual entry — v1.0
+- ✓ NOTF-01: Push notification on new task creation — v1.0
+- ✓ NOTF-02: Push notification includes client name and request type — v1.0
+- ✓ NOTF-03: Staff can grant/deny push permission in-app — v1.0
+- ✓ PWA-01: Installable on iOS Safari and Android Chrome — v1.0
+- ✓ PWA-02: Offline shell when network unavailable — v1.0
+- ✓ PWA-03: Responsive UI on mobile (375px+) and desktop (1024px+) — v1.0
+- ✓ FILT-01: Filter by status — v1.0
+- ✓ FILT-02: Filter by request type — v1.0
+- ✓ FILT-03: Filter by date range — v1.0
+- ✓ FILT-04: Search by client name or phone — v1.0
 
 ### Active
 
-- [ ] Email/password login for staff
-- [ ] Manual task creation form (client name, phone, service, preferred date/time, notes, request type)
-- [ ] Request type: New Booking vs Change Request (time change, therapist change, etc.)
-- [ ] Shared task board — all staff see all tasks
-- [ ] Task status lifecycle: Open → In Progress → Done
-- [ ] Real-time board updates across all devices (no refresh needed)
-- [ ] Screenshot upload with Claude vision AI auto-fill
-- [ ] Push notifications to all staff when new task is created
-- [ ] Responsive UI — mobile and desktop
-- [ ] PWA installable to home screen (iOS + Android)
+(None — next milestone not yet planned)
 
 ### Out of Scope
 
 - Task assignment to specific staff — flat team, everyone handles everything
-- Fresha integration — they book there separately, this just tracks the follow-up
-- KakaoTalk bot / message ingestion — screenshot upload covers this for v1
-- Analytics / reporting — useful later, not needed to solve the core problem
-- Native iOS/Android app — PWA covers the use case without app store overhead
-- Role-based permissions — 3-5 person flat team, overkill for v1
+- Fresha integration — they book there separately, this just tracks follow-up
+- KakaoTalk bot / message ingestion — screenshot upload covers this
+- Analytics / reporting — useful later, not core problem
+- Native iOS/Android app — PWA covers the use case
+- Role-based permissions — 3-5 person flat team
 
 ## Context
 
-- Sister's massage business — small team of 3-5 staff
-- Current workflow: missed calls → screenshot → share in KakaoTalk group chat → gets buried → lead missed
-- 5-15 calls/day (moderate volume, each one matters)
-- Existing booking system: Fresha (separate — this app tracks follow-ups only)
-- Staff use both mobile phones and desktop computers
-- Korean messenger (KakaoTalk) screenshots contain mixed Korean/English text and call metadata
+Shipped v1.0 with ~3,900 LOC TypeScript across 143 files.
+Tech stack: TanStack Start, Supabase, Claude Vision API, Tailwind CSS v4, shadcn/ui.
+Deployed on Vercel as a PWA with Web Push notifications via Supabase Edge Functions.
+Email allowlist restricts signups to approved staff only (ALLOWED_SIGNUP_EMAILS env var).
+5 days from project init to production deployment (2026-03-31 → 2026-04-05).
 
 ## Constraints
 
@@ -58,11 +73,12 @@ Every incoming call gets logged and followed up — zero leads fall through the 
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| TanStack Start over Next.js | User preference; Vite-based, file-based routing, type-safe server functions | — Pending |
-| Supabase for DB + auth + realtime | Hosted Postgres, built-in realtime subscriptions, auth out of the box | — Pending |
-| Claude API for screenshot OCR | Best vision model for mixed Korean/English noisy screenshots | — Pending |
-| Web Push + VAPID over OneSignal | No third-party lock-in, free, works on iOS 16.4+ PWA | — Pending |
-| PWA over native app | Avoids app store overhead; covers the mobile use case sufficiently | — Pending |
+| TanStack Start over Next.js | User preference; Vite-based, file-based routing, type-safe server functions | ✓ Good |
+| Supabase for DB + auth + realtime | Hosted Postgres, built-in realtime subscriptions, auth out of the box | ✓ Good |
+| Claude API for screenshot OCR | Best vision model for mixed Korean/English noisy screenshots | ✓ Good |
+| Web Push + VAPID over OneSignal | No third-party lock-in, free, works on iOS 16.4+ PWA | ✓ Good |
+| PWA over native app | Avoids app store overhead; covers the mobile use case sufficiently | ✓ Good |
+| Server-side email allowlist | Prevents unauthorized signups; configurable via env var without code changes | ✓ Good |
 
 ---
-*Last updated: 2026-03-31 after initial project definition*
+*Last updated: 2026-04-05 after v1.0 milestone*
