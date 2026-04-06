@@ -40,11 +40,11 @@ Every incoming call gets logged and followed up — zero leads fall through the 
 - ✓ FILT-02: Filter by request type — v1.0
 - ✓ FILT-03: Filter by date range — v1.0
 - ✓ FILT-04: Search by client name or phone — v1.0
+- ✓ FIX-01: Mobile photo picker allows library selection — v1.1 Phase 5
+- ✓ FIX-02: Zero TypeScript errors (tsc --noEmit clean) — v1.1 Phase 5
 
 ### Active
 
-- [ ] Fix mobile photo picker to allow library selection (not just camera)
-- [ ] Fix TypeScript errors (tsc --noEmit clean)
 - [ ] Automated follow-up reminders when task stays Open >X hours
 - [ ] Analytics dashboard: calls/day, calls/week, avg Open→Done time, request type breakdown
 
@@ -88,9 +88,9 @@ Email allowlist restricts signups to approved staff only (ALLOWED_SIGNUP_EMAILS 
 **Goal:** Keep tasks from going stale with automated reminders, give visibility into call patterns, and fix production issues.
 
 **Target features:**
-- Fix mobile photo picker and TypeScript errors (production quality)
+- ~~Fix mobile photo picker and TypeScript errors~~ ✓ Phase 5 complete
 - Automated push reminders to all staff when tasks stay Open too long
 - Analytics dashboard with 3 key metrics: volume, response time, request mix
 
 ---
-*Last updated: 2026-04-05 after v1.1 milestone start*
+*Last updated: 2026-04-06 after Phase 5 (Bug Fixes) complete*
