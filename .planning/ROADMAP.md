@@ -34,7 +34,10 @@
 **Success Criteria** (what must be TRUE):
   1. Staff on mobile can tap the photo upload and choose an existing photo from their library (not forced into camera-only mode)
   2. Running `npx tsc --noEmit` produces zero errors across the entire codebase
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 05-01-PLAN.md — Fix tsconfig (exclude Deno/SW) and regenerate Supabase database types
+- [ ] 05-02-PLAN.md — Fix localized TypeScript errors and mobile photo picker
 
 ### Phase 6: Follow-up Reminders
 **Goal**: No task silently goes stale — staff get nudged when tasks sit in Open status too long
@@ -68,7 +71,7 @@
 | 2. PWA + Push Notifications | v1.0 | 3/3 | Complete | 2026-04-02 |
 | 3. AI Screenshot Processing | v1.0 | 3/3 | Complete | 2026-04-03 |
 | 4. Filters, Search & Hardening | v1.0 | 3/3 | Complete | 2026-04-04 |
-| 5. Bug Fixes | v1.1 | 0/? | Not started | - |
+| 5. Bug Fixes | v1.1 | 0/2 | In progress | - |
 | 6. Follow-up Reminders | v1.1 | 0/? | Not started | - |
 | 7. Analytics Dashboard | v1.1 | 0/? | Not started | - |
 
