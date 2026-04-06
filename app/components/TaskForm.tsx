@@ -292,14 +292,13 @@ export function TaskForm({ mode, task, open, onOpenChange, onDelete }: TaskFormP
                 onClick={handleAttachImage}
               >
                 <ImagePlus className="h-4 w-4 mr-2" />
-                Attach Screenshot
+                Attach Photo
               </Button>
             )}
             <input
               ref={fileInputRef}
               type="file"
               accept={ACCEPTED_EXTENSIONS}
-              capture="environment"
               className="hidden"
               onChange={handleFileSelected}
             />

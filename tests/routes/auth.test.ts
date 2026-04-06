@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
@@ -6,18 +6,15 @@ import { resolve } from 'path'
 // Full integration tests require browser environment and Supabase connection
 
 describe('Auth flow', () => {
-  const loginSource = readFileSync(
-    resolve(__dirname, '../../app/routes/login.tsx'),
-    'utf-8',
-  )
+  const loginSource = readFileSync(resolve(__dirname, '../../app/routes/login.tsx'), 'utf-8')
 
   it('signInWithPassword is called with email and password (AUTH-01)', () => {
     // Verify login page imports and calls signInWithPassword
     expect(loginSource).toContain('signInWithPassword')
-    expect(loginSource).toContain("name=\"email\"")
-    expect(loginSource).toContain("name=\"password\"")
-    expect(loginSource).toContain("type=\"email\"")
-    expect(loginSource).toContain("type=\"password\"")
+    expect(loginSource).toContain('name="email"')
+    expect(loginSource).toContain('name="password"')
+    expect(loginSource).toContain('type="email"')
+    expect(loginSource).toContain('type="password"')
   })
 
   it('session cookie is set on successful login', () => {
@@ -31,16 +28,13 @@ describe('Auth flow', () => {
 })
 
 describe('Protected route guard (_auth.tsx)', () => {
-  const authLayoutSource = readFileSync(
-    resolve(__dirname, '../../app/routes/_auth.tsx'),
-    'utf-8',
-  )
+  const authLayoutSource = readFileSync(resolve(__dirname, '../../app/routes/_auth.tsx'), 'utf-8')
 
   it('redirects unauthenticated users to /login (AUTH-03)', () => {
     // Verify the auth layout checks for user and redirects if not found
     expect(authLayoutSource).toContain('getCurrentUser')
     expect(authLayoutSource).toContain('beforeLoad')
-    expect(authLayoutSource).toContain("redirect")
+    expect(authLayoutSource).toContain('redirect')
     expect(authLayoutSource).toContain("'/login'")
   })
 
@@ -59,10 +53,7 @@ describe('Protected route guard (_auth.tsx)', () => {
 })
 
 describe('getCurrentUser server function', () => {
-  const authServerSource = readFileSync(
-    resolve(__dirname, '../../app/server/auth.ts'),
-    'utf-8',
-  )
+  const authServerSource = readFileSync(resolve(__dirname, '../../app/server/auth.ts'), 'utf-8')
 
   it('uses server client with request headers for cookie auth', () => {
     expect(authServerSource).toContain('getSupabaseServerClient')

@@ -12,17 +12,10 @@ interface TaskBoardProps {
   initialTasks: TaskWithStaff[]
   onEditTask: (task: TaskWithStaff) => void
   filters: FilterState
-  hasActiveFilters: boolean
   onClearFilters: () => void
 }
 
-export function TaskBoard({
-  initialTasks,
-  onEditTask,
-  filters,
-  hasActiveFilters,
-  onClearFilters,
-}: TaskBoardProps) {
+export function TaskBoard({ initialTasks, onEditTask, filters, onClearFilters }: TaskBoardProps) {
   const [tasks, setTasks] = useState<TaskWithStaff[]>(initialTasks)
 
   // Build a staff lookup cache from initial data and keep it updated

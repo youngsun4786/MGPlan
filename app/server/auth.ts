@@ -35,7 +35,7 @@ export const getCurrentUser = createServerFn({ method: 'GET' }).handler(async ()
   // Fetch staff record for display_name
   const { data: staff, error: staffError } = await supabase
     .from('staff')
-    .select('id, email, display_name')
+    .select('id, email, display_name, created_at')
     .eq('id', user.id)
     .single()
 
@@ -52,6 +52,7 @@ export const getCurrentUser = createServerFn({ method: 'GET' }).handler(async ()
       id: user.id,
       email: user.email ?? '',
       display_name: displayName,
+      created_at: user.created_at ?? new Date().toISOString(),
     }
   }
 

@@ -165,7 +165,6 @@ function BoardPage() {
               initialTasks={tasks}
               onEditTask={handleEditTask}
               filters={filters}
-              hasActiveFilters={hasActiveFilters}
               onClearFilters={clearAll}
             />
           </main>

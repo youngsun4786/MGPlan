@@ -3,7 +3,7 @@ import { TASK_STATUS_LABELS, type TaskStatus } from '~/lib/constants'
 
 interface StatusBadgeProps {
   status: TaskStatus
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
 }
 

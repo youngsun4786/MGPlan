@@ -85,6 +85,7 @@ function SignupPage() {
             </p>
             <Link
               to="/login"
+              search={{ expired: undefined }}
               className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
             >
               Back to Sign In
@@ -196,6 +197,7 @@ function SignupPage() {
             Already have an account?{' '}
             <Link
               to="/login"
+              search={{ expired: undefined }}
               className="font-medium text-primary hover:text-primary/80 transition-colors"
             >
               Sign in

@@ -8,7 +8,9 @@ vi.mock('~/server/tasks', () => ({
 }))
 
 vi.mock('~/server/screenshot', () => ({
-  uploadScreenshot: vi.fn().mockResolvedValue({ success: true, screenshotUrl: 'https://example.com/img.jpg' }),
+  uploadScreenshot: vi
+    .fn()
+    .mockResolvedValue({ success: true, screenshotUrl: 'https://example.com/img.jpg' }),
 }))
 
 // Mock the Dialog portal to render inline for testing
@@ -69,7 +71,9 @@ vi.mock('~/components/ui/select', async () => {
 // Mock ScreenshotPreview
 vi.mock('~/components/ScreenshotPreview', () => ({
   ScreenshotPreview: ({ imageUrl }: { imageUrl: string; defaultOpen?: boolean }) => (
-    <div data-testid="screenshot-preview" data-url={imageUrl}>Screenshot Preview</div>
+    <div data-testid="screenshot-preview" data-url={imageUrl}>
+      Screenshot Preview
+    </div>
   ),
 }))
 
@@ -138,9 +142,9 @@ describe('TaskForm component', () => {
     expect(screen.getByText('Notes')).toBeInTheDocument()
   })
 
-  it('renders Attach Screenshot button in create mode', () => {
+  it('renders Attach Photo button in create mode', () => {
     render(<TaskForm {...defaultProps} />)
-    expect(screen.getByRole('button', { name: /Attach Screenshot/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Attach Photo/i })).toBeInTheDocument()
   })
 
   it('does not render when open is false', () => {

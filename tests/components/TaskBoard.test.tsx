@@ -2,12 +2,12 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 // Use vi.hoisted to define mock functions that can be referenced in vi.mock factories
-const { mockChannel, mockOn, mockSubscribe, mockRemoveChannel } = vi.hoisted(() => {
+const { mockChannel, mockSubscribe, mockRemoveChannel } = vi.hoisted(() => {
   const mockSubscribe = vi.fn().mockReturnValue({ unsubscribe: vi.fn() })
   const mockOn = vi.fn().mockReturnThis()
   const mockChannel = vi.fn().mockReturnValue({ on: mockOn, subscribe: mockSubscribe })
   const mockRemoveChannel = vi.fn()
-  return { mockChannel, mockOn, mockSubscribe, mockRemoveChannel }
+  return { mockChannel, mockSubscribe, mockRemoveChannel }
 })
 
 vi.mock('~/lib/supabase.browser', () => ({
@@ -31,10 +31,14 @@ vi.mock('~/server/tasks', () => ({
 
 import { TaskBoard } from '../../app/components/TaskBoard'
 import { DEFAULT_FILTERS } from '../../app/lib/filters'
+import type { TaskStatus, RequestType } from '../../app/lib/constants'
 
 const defaultFilterProps = {
-  filters: { ...DEFAULT_FILTERS, statuses: new Set(), requestTypes: new Set() } as const,
-  hasActiveFilters: false,
+  filters: {
+    ...DEFAULT_FILTERS,
+    statuses: new Set<TaskStatus>(),
+    requestTypes: new Set<RequestType>(),
+  } as const,
   onClearFilters: vi.fn(),
 }
 
@@ -51,6 +55,7 @@ const mockTask = {
   last_updated_by: 'u1',
   created_at: '2026-04-01T00:00:00Z',
   updated_at: '2026-04-01T00:00:00Z',
+  screenshot_url: null,
   staff: { display_name: 'Kim' },
 }
 
