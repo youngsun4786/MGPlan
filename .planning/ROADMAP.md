@@ -37,7 +37,7 @@
 **Plans:** 2 plans
 Plans:
 - [x] 05-01-PLAN.md — Fix tsconfig (exclude Deno/SW) and regenerate Supabase database types
-- [ ] 05-02-PLAN.md — Fix localized TypeScript errors and mobile photo picker
+- [x] 05-02-PLAN.md — Fix localized TypeScript errors and mobile photo picker
 
 ### Phase 6: Follow-up Reminders
 **Goal**: No task silently goes stale — staff get nudged when tasks sit in Open status too long

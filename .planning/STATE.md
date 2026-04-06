@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Reminders, Analytics & Fixes
-status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-04-06T04:24:54.526Z"
+status: verifying
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-04-06T04:33:54.280Z"
 last_activity: 2026-04-06
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
   percent: 70
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-05)
 
 Phase: 05 (bug-fixes) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-06
 
 Progress: [██████████████░░░░░░] 70% (v1.0 complete, v1.1 starting)
@@ -55,6 +55,7 @@ Progress: [██████████████░░░░░░] 70% (v1
 - Trend: Stable
 
 | Phase 05-bug-fixes P01 | 5min | 2 tasks | 3 files |
+| Phase 05 P02 | 7min | 1 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,7 @@ Recent decisions affecting current work:
 - [v1.1]: Bug fixes first, then reminders, then analytics (user priority order)
 - [v1.0]: Web Push + VAPID for notifications (reused by Phase 6 reminders)
 - [Phase 05-bug-fixes]: Used --project-id for Supabase type gen (project not linked locally)
+- [Phase 05]: Used search={{ expired: undefined }} for TanStack Router Link type safety
 
 ### Pending Todos
 
@@ -77,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-06T04:24:54.523Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-04-06T04:33:54.278Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None
