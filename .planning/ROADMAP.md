@@ -47,7 +47,10 @@ Plans:
   1. When a task stays in Open status longer than the configured threshold, all subscribed staff receive a push notification
   2. The reminder notification shows the client name and elapsed time since the task was created
   3. Once a task moves to In Progress or Done, no further reminders are sent for that task
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 06-01-PLAN.md — SQL migration + remind-tasks Edge Function + unit tests
+- [ ] 06-02-PLAN.md — Regenerate database types + deployment verification
 
 ### Phase 7: Analytics Dashboard
 **Goal**: Staff can see call patterns at a glance — volume trends, response speed, and request mix
@@ -72,7 +75,7 @@ Plans:
 | 3. AI Screenshot Processing | v1.0 | 3/3 | Complete | 2026-04-03 |
 | 4. Filters, Search & Hardening | v1.0 | 3/3 | Complete | 2026-04-04 |
 | 5. Bug Fixes | v1.1 | 0/2 | In progress | - |
-| 6. Follow-up Reminders | v1.1 | 0/? | Not started | - |
+| 6. Follow-up Reminders | v1.1 | 0/2 | Planned | - |
 | 7. Analytics Dashboard | v1.1 | 0/? | Not started | - |
 
 ---
