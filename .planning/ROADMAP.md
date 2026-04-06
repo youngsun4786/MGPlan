@@ -36,7 +36,7 @@
   2. Running `npx tsc --noEmit` produces zero errors across the entire codebase
 **Plans:** 2 plans
 Plans:
-- [ ] 05-01-PLAN.md — Fix tsconfig (exclude Deno/SW) and regenerate Supabase database types
+- [x] 05-01-PLAN.md — Fix tsconfig (exclude Deno/SW) and regenerate Supabase database types
 - [ ] 05-02-PLAN.md — Fix localized TypeScript errors and mobile photo picker
 
 ### Phase 6: Follow-up Reminders

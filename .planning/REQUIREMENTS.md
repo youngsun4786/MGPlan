@@ -9,7 +9,7 @@
 ### Bug Fixes
 
 - [ ] **FIX-01**: Mobile photo picker allows selecting from photo library, not just camera
-- [ ] **FIX-02**: `npx tsc --noEmit` passes with zero errors
+- [x] **FIX-02**: `npx tsc --noEmit` passes with zero errors
 
 ### Reminders
 
@@ -38,7 +38,7 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | FIX-01 | Phase 5 | Pending |
-| FIX-02 | Phase 5 | Pending |
+| FIX-02 | Phase 5 | Complete |
 | REM-01 | Phase 6 | Pending |
 | REM-02 | Phase 6 | Pending |
 | REM-03 | Phase 6 | Pending |
